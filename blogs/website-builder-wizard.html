@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="Fort Logo No Background.png" type="image/png">
+    <title>Fort Website Builder Wizard & Dynamic Layout Generation Engine</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            --primary: #0a192f;
+            --primary-light: #1e293b;
+            --accent: #0288d1;
+            --accent-glow: #38bdf8;
+            --text-main: #334155;
+            --text-muted: #64748b;
+            --bg-light: #f8fafc;
+            --white: #ffffff;
+            --radius: 12px;
+            --shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.08);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+            line-height: 1.75;
+            color: var(--text-main);
+            background-color: var(--bg-light);
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1050px;
+            margin: 0 auto;
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background-color: var(--white);
+            color: var(--accent);
+            padding: 10px 22px;
+            text-decoration: none;
+            border-radius: var(--radius);
+            font-weight: 600;
+            font-size: 0.95rem;
+            margin-bottom: 24px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+            transition: all 0.2s ease;
+        }
+
+        .back-btn:hover {
+            background-color: var(--accent);
+            color: var(--white);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(2, 136, 209, 0.2);
+        }
+
+        .page-card {
+            background: var(--white);
+            padding: 50px;
+            border-radius: 16px;
+            border: 1px solid #e2e8f0;
+            box-shadow: var(--shadow);
+        }
+
+        header.hero {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        h1 {
+            color: var(--primary);
+            font-size: 2.3rem;
+            letter-spacing: -0.5px;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: var(--accent);
+            font-weight: 600;
+            font-size: 1.05rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        h2 {
+            color: var(--primary);
+            font-size: 1.6rem;
+            margin: 35px 0 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        p {
+            margin-bottom: 18px;
+            color: var(--text-main);
+            font-size: 1.02rem;
+        }
+
+        /* Image Layout Components */
+        .img-slot {
+            background: #f1f5f9;
+            border-radius: var(--radius);
+            overflow: hidden;
+            border: 1px solid #e2e8f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .img-slot img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .img-center {
+            width: 100%;
+            max-height: 380px;
+            margin: 30px 0;
+        }
+
+        .grid-split {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            align-items: center;
+            margin: 30px 0;
+        }
+
+        .img-side {
+            height: 320px;
+        }
+
+        /* Lists */
+        ul {
+            padding-left: 20px;
+            margin-bottom: 20px;
+        }
+
+        li {
+            margin-bottom: 10px;
+            color: var(--text-main);
+            font-size: 1rem;
+        }
+
+        /* Code/Diagram Blocks */
+        pre {
+            background-color: var(--primary);
+            color: var(--accent-glow);
+            padding: 20px;
+            border-radius: var(--radius);
+            overflow-x: auto;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.88rem;
+            line-height: 1.4;
+            margin: 25px 0;
+            border: 1px solid var(--primary-light);
+        }
+
+        /* Data Tables */
+        .table-responsive {
+            overflow-x: auto;
+            margin: 25px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--white);
+            border-radius: var(--radius);
+            overflow: hidden;
+            border: 1px solid #e2e8f0;
+        }
+
+        th, td {
+            padding: 14px 18px;
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        th {
+            background-color: var(--primary);
+            color: var(--white);
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        td {
+            font-size: 0.95rem;
+            color: var(--text-main);
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* Contact Section */
+        .contact-container {
+            background: linear-gradient(135deg, #e0f2fe 0%, #e1f5fe 100%);
+            padding: 30px;
+            border-radius: var(--radius);
+            border-left: 5px solid var(--accent);
+            margin-top: 30px;
+        }
+
+        .contact-container h3 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+
+        .contact-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .contact-item {
+            background: var(--white);
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+            border: 1px solid #cbd5e1;
+        }
+
+        .contact-item strong {
+            color: var(--primary);
+        }
+
+        .contact-item a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        .contact-item a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive Layout Adjustments */
+        @media (max-width: 768px) {
+            .page-card { padding: 25px; }
+            .grid-split { grid-template-columns: 1fr; }
+            .grid-split.reverse { display: flex; flex-direction: column-reverse; }
+            h1 { font-size: 1.8rem; }
+        } 
+
+        /* =========================================================
+        CUSTOM SCROLLBAR STYLES (Code 1 & Code 2)
+        ========================================================= */
+
+        /* Firefox standard scrollbar properties */
+        * {
+            scrollbar-width: thin;
+            scrollbar-color: var(--fort-blue-light, #3182ce) rgba(0, 0, 0, 0.05);
+        }
+
+        /* WebKit-based browsers (Chrome, Edge, Safari) */
+        ::-webkit-scrollbar {
+            width: 7px !important;
+            height: 7px !important; /* Handles horizontal scrollbars on <pre> and tables */
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.05) !important;
+            border-radius: 10px !important;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--fort-blue-light, #3182ce) !important;
+            border-radius: 10px !important;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #0288d1 !important; /* Subtle hover highlight matching accent colors */
+        }
+
+        .related-section { margin-top: 50px; padding-top: 30px; border-top: 2px solid #e2e8f0; }
+        .related-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-top: 20px; }
+        .blog-card { background: var(--white); border: 1px solid #e2e8f0; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.03); }
+        .blog-card-media { height: 160px; background: #e2e8f0; overflow: hidden; }
+        .blog-card-media img { width: 100%; height: 100%; object-fit: cover; }
+        .blog-card-body { padding: 20px; }
+        .blog-topic-badge { display: inline-block; background: #e0f2fe; color: var(--accent); padding: 4px 10px; border-radius: 6px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; margin-bottom: 10px; }
+        .blog-card-title { font-size: 1.1rem; color: var(--primary); margin-bottom: 10px; line-height: 1.3; }
+        .blog-card-summary { font-size: 0.88rem; color: var(--text-muted); margin-bottom: 15px; }
+        .btn-read-more { color: var(--accent); font-weight: 600; text-decoration: none; font-size: 0.9rem; display: inline-flex; align-items: center; gap: 6px; }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="page-card">
+            <header class="hero">
+                <h1>Fort Website Builder Wizard & Dynamic Layout Generation Engine</h1>
+                <p>System Specifications & Schema Compiler Integration Guide</p>
+                <div class="article-meta text-muted margin-top-xs">
+                    <span><i class="fa-solid fa-user"></i> By Fort Engineering Team</span>  |  
+                    <span><i class="fa-solid fa-calendar-days"></i> August 15, 2026</span>  |  
+                    <span><i class="fa-solid fa-clock"></i> 7 Min Read</span>
+                </div>
+            </header>
+
+            <!-- IMAGE SLOT: CENTER HERO BANNER -->
+            <div class="img-slot img-center">
+                <img src="Fort Developers.jfif" alt="Fort Graphics Marketplace Platform">
+            </div>
+
+            <p>The Fort Website Builder Wizard translates user layout preferences, branding choices, and module selections into dynamic, high-performance HTML/CSS/JS web architectures. This tool enables non-technical clients to communicate exact structural requirements while outputting valid semantic markup.</p>
+
+            <h2>Layout Schema Compiler Architecture</h2>
+            <p>The compiler parses JSON-based layout trees into responsive, accessible grid components. By maintaining structural decoupling between layout schemas and visual styling, the engine ensures optimal responsive rendering across device viewports.</p>
+
+<pre>
+// Production Compiler Routine: JSON Layout Tree Parsing
+function compileLayoutSchema(schema) {
+    const rootElement = document.createElement('main');
+    rootElement.className = 'generated-site-wrapper';
+
+    schema.sections.forEach(section => {
+        const sectionNode = document.createElement('section');
+        sectionNode.id = section.id;
+        sectionNode.className = `layout-section ${section.type}`;
+
+        section.components.forEach(comp => {
+            const el = document.createElement(comp.tag);
+            el.className = comp.cssClass;
+            el.innerText = comp.content || '';
+            sectionNode.appendChild(el);
+        });
+
+        rootElement.appendChild(sectionNode);
+    });
+
+    return rootElement.outerHTML;
+}
+</pre>
+
+            <h2>Frequently Asked Questions (FAQ)</h2>
+            <div class="faq-box" itemscope itemtype="https://schema.org/Question">
+                <strong itemprop="name">Does the Website Builder produce clean, responsive code?</strong>
+                <div itemscope itemtype="https://schema.org/Answer" itemprop="acceptedAnswer">
+                    <p itemprop="text">Yes, all layout outputs utilize clean semantic HTML5 markup, CSS Grid, and flexbox containers optimized for high Google PageSpeed scores.</p>
+                </div>
+            </div>
+
+            <div class="related-section">
+                <h2>Related Developer Tools</h2>
+                <div class="related-grid">
+                    <article class="blog-card">
+                        <div class="blog-card-media"><img src="Fort Developers.jfif" alt="Fort Graphics API"></div>
+                        <div class="blog-card-body">
+                            <div class="blog-topic-badge">API Guide</div>
+                            <h3>Fort Graphics Marketplace API Reference</h3>
+                            <p>Complete integration guide for custom graphic workflow automation.</p>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="Fort Logo No Background.png" type="image/png">
+    <title>Paystack Split Payments & Escrow Integration Architecture - Fort Developers</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            --primary: #0a192f;
+            --primary-light: #1e293b;
+            --accent: #0288d1;
+            --accent-glow: #38bdf8;
+            --text-main: #334155;
+            --text-muted: #64748b;
+            --bg-light: #f8fafc;
+            --white: #ffffff;
+            --radius: 12px;
+            --shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.08);
+            --fort-blue-light: #3182ce;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+            line-height: 1.75;
+            color: var(--text-main);
+            background-color: var(--bg-light);
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1050px;
+            margin: 0 auto;
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background-color: var(--white);
+            color: var(--accent);
+            padding: 10px 22px;
+            text-decoration: none;
+            border-radius: var(--radius);
+            font-weight: 600;
+            font-size: 0.95rem;
+            margin-bottom: 24px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+            transition: all 0.2s ease;
+        }
+
+        .back-btn:hover {
+            background-color: var(--accent);
+            color: var(--white);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(2, 136, 209, 0.2);
+        }
+
+        .page-card {
+            background: var(--white);
+            padding: 50px;
+            border-radius: 16px;
+            border: 1px solid #e2e8f0;
+            box-shadow: var(--shadow);
+        }
+
+        header.hero {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        h1 {
+            color: var(--primary);
+            font-size: 2.3rem;
+            letter-spacing: -0.5px;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: var(--accent);
+            font-weight: 600;
+            font-size: 1.05rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 5px;
+        }
+
+        .article-meta {
+            margin-top: 15px;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        h2 {
+            color: var(--primary);
+            font-size: 1.6rem;
+            margin: 35px 0 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        h3 {
+            color: var(--primary-light);
+            font-size: 1.25rem;
+            margin: 25px 0 12px;
+        }
+
+        p {
+            margin-bottom: 18px;
+            color: var(--text-main);
+            font-size: 1.02rem;
+        }
+
+        .img-slot {
+            background: #f1f5f9;
+            border-radius: var(--radius);
+            overflow: hidden;
+            border: 1px solid #e2e8f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .img-slot img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .img-center {
+            width: 100%;
+            max-height: 380px;
+            margin: 30px 0;
+        }
+
+        ul, ol {
+            padding-left: 24px;
+            margin-bottom: 20px;
+        }
+
+        li {
+            margin-bottom: 10px;
+            color: var(--text-main);
+            font-size: 1rem;
+        }
+
+        pre {
+            background-color: var(--primary);
+            color: var(--accent-glow);
+            padding: 20px;
+            border-radius: var(--radius);
+            overflow-x: auto;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.88rem;
+            line-height: 1.4;
+            margin: 25px 0;
+            border: 1px solid var(--primary-light);
+        }
+
+        .table-responsive {
+            overflow-x: auto;
+            margin: 25px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--white);
+            border-radius: var(--radius);
+            overflow: hidden;
+            border: 1px solid #e2e8f0;
+        }
+
+        th, td {
+            padding: 14px 18px;
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        th {
+            background-color: var(--primary);
+            color: var(--white);
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        td {
+            font-size: 0.95rem;
+            color: var(--text-main);
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        .footer-a-link {
+            color: var(--accent);
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .footer-a-link:hover {
+            text-decoration: underline;
+        }
+
+        .callout-box {
+            background: #e0f2fe;
+            border-left: 4px solid var(--accent);
+            padding: 20px;
+            border-radius: 0 var(--radius) var(--radius) 0;
+            margin: 25px 0;
+        }
+
+        * {
+            scrollbar-width: thin;
+            scrollbar-color: var(--fort-blue-light) rgba(0, 0, 0, 0.05);
+        }
+
+        ::-webkit-scrollbar {
+            width: 7px !important;
+            height: 7px !important;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.05) !important;
+            border-radius: 10px !important;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--fort-blue-light) !important;
+            border-radius: 10px !important;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #0288d1 !important;
+        }
+
+        .related-section { margin-top: 50px; padding-top: 30px; border-top: 2px solid #e2e8f0; }
+        .related-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-top: 20px; }
+        .blog-card { background: var(--white); border: 1px solid #e2e8f0; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.03); }
+        .blog-card-media { height: 160px; background: #e2e8f0; overflow: hidden; }
+        .blog-card-media img { width: 100%; height: 100%; object-fit: cover; }
+        .blog-card-body { padding: 20px; }
+        .blog-topic-badge { display: inline-block; background: #e0f2fe; color: var(--accent); padding: 4px 10px; border-radius: 6px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; margin-bottom: 10px; }
+        .blog-card-title { font-size: 1.1rem; color: var(--primary); margin-bottom: 10px; line-height: 1.3; }
+        .blog-card-summary { font-size: 0.88rem; color: var(--text-muted); margin-bottom: 15px; }
+
+        @media (max-width: 768px) {
+            .page-card { padding: 25px; }
+            h1 { font-size: 1.8rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="https://fort-site.com.ng/blogs.html" class="back-btn"><i class="fa-solid fa-arrow-left"></i> Back to Engineering Blog</a>
+        
+        <div class="page-card">
+            <header class="hero">
+                <h1>Paystack Split Payments & Escrow Integration Architecture</h1>
+                <div class="subtitle">Automating Marketplace Disbursement & Financial Compliance</div>
+                <div class="article-meta">
+                    <span><i class="fa-solid fa-user"></i> By Fort Engineering Team</span> | 
+                    <span><i class="fa-solid fa-calendar-days"></i> August 15, 2026</span> | 
+                    <span><i class="fa-solid fa-clock"></i> 10 Min Read</span>
+                </div>
+            </header>
+
+            <div class="img-slot img-center">
+                <img src="assets/Paystack Fort Developers Image.png" alt="Paystack Split Payments Architecture">
+            </div>
+
+            <p>Building a modern, multi-vendor marketplace or service-matching ecosystem requires solving one of financial technology's trickiest challenges: managing multi-party payouts with legal precision and accounting accuracy. When a customer purchases a product or hires a designer on a digital platform, the platform operator must automatically split funds between seller earnings and marketplace commissions. Furthermore, in high-value digital labor environments, immediate payout creates significant dispute risk. True financial integrity requires an escrow-style hold mechanism before merchant settlement.</p>
+
+            <p>In this technical breakdown, we present the end-to-end architecture used by the Fort Engineering Team to implement Paystack Split Payments alongside custom escrow state management. By combining Paystack's Subaccounts and Multi-Split APIs with webhooks-driven application logic, platforms can seamlessly process customer cards, direct vendor payouts, hold operational funds safely, and handle dispute resolutions automatically.</p>
+
+            <h2>1. Core Architectural Pillars of Split Payments</h2>
+            <p>To understand split payment integration, developers must distinguish between simple single-vendor checkouts and multi-party payment routing. Paystack facilitates automated distribution using three core primitives:</p>
+            <ul>
+                <li><strong>Subaccounts:</strong> Virtual representations of third-party vendors, creators, or service providers registered on your platform. Each subaccount maps directly to the merchant's real bank account and verified settlement credentials.</li>
+                <li><strong>Split Codes (Multi-Split Groups):</strong> Pre-configured rule groups created via API that dictate percentage or flat-fee allocations across two or more subaccounts for a single transaction.</li>
+                <li><strong>Transaction Bearer Rules:</strong> Explicit configurations determining which entity absorbs Paystack processing fees (the primary platform, the vendor subaccount, or the end customer).</li>
+            </ul>
+
+            <p>When an order is created, the application server generates a dynamic payment payload. Instead of routing all funds into the primary platform's main balance, the Paystack engine parses the assigned subaccount or split code, calculating splits on the fly at the precise instant the client's card or bank account is charged.</p>
+
+            <h2>2. Designing an Automated Escrow State Machine</h2>
+            <p>While Paystack handles payment collection and split calculation instantly, true escrow requires conditional payout logic. A native Paystack split transaction instantly sends funds to the merchant's subaccount according to standard settlement schedules (T+1 business days in Nigeria). However, for services requiring milestone approval—such as custom graphic design, software development, or physical freight delivery—instant payout can leave buyers vulnerable if work is incomplete or substandard.</p>
+
+            <div class="callout-box">
+                <strong>Architectural Insight:</strong> To execute simulated escrow via Paystack without violating regulatory holding restrictions, platforms utilize delayed payout schedules combined with custom backend state locks. Payouts are staged in platform balance or subaccount pending states until programmatic verification releases them.
+            </div>
+
+            <p>Our engineering model implements an explicit state machine for every transaction processed across the network:</p>
+
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>State Name</th>
+                            <th>Trigger Event</th>
+                            <th>System Action</th>
+                            <th>Financial Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>INITIATED</code></td>
+                            <td>Client clicks "Pay Now"</td>
+                            <td>Generates Paystack reference & locks order details</td>
+                            <td>Unpaid</td>
+                        </tr>
+                        <tr>
+                            <td><code>ESCROW_HELD</code></td>
+                            <td><code>charge.success</code> webhook received</td>
+                            <td>Validates signature; unlocks project workspace</td>
+                            <td>Funds captured; payout locked</td>
+                        </tr>
+                        <tr>
+                            <td><code>MILESTONE_SUBMITTED</code></td>
+                            <td>Vendor uploads deliverables</td>
+                            <td>Notifies buyer; starts 72-hour review timer</td>
+                            <td>Escrow state active</td>
+                        </tr>
+                        <tr>
+                            <td><code>RELEASED</code></td>
+                            <td>Buyer approves or timer expires</td>
+                            <td>Triggers automated payout transfer to subaccount</td>
+                            <td>Funds disbursed</td>
+                        </tr>
+                        <tr>
+                            <td><code>DISPUTED</code></td>
+                            <td>Buyer opens support ticket</td>
+                            <td>Freezes payout transfer; routes to human audit</td>
+                            <td>Funds locked in dispute hold</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h2>3. Client-Side Checkout Initialization</h2>
+            <p>Below is a production-ready JavaScript implementation utilizing the Paystack Inline JS SDK. The payload configures dynamic platform fee absorption alongside targeted vendor subaccount attribution:</p>
+
+<pre>
+// Production Paystack Checkout Modal Initialization with Dynamic Split
+function initializeEscrowCheckout(orderData) {
+    const handler = PaystackPop.setup({
+        key: 'pk_live_XXXXXXXXXXXXXXXXXXXXXXXX',
+        email: orderData.clientEmail,
+        amount: orderData.totalAmountInKobo, // e.g., 500000 NGN = 50000000 Kobo
+        currency: 'NGN',
+        subaccount: orderData.vendorSubaccountCode, // e.g., 'ACCT_xxxxxxxxx'
+        transaction_charge: orderData.platformCommissionInKobo,
+        bearer: 'subaccount', // Vendor absorbs the Paystack gateway fee
+        metadata: {
+            projectId: orderData.projectId,
+            orderId: orderData.orderId,
+            escrowHoldDays: 7,
+            custom_fields: [
+                { display_name: "Project Reference", variable_name: "project_ref", value: orderData.projectId },
+                { display_name: "Vendor Code", variable_name: "vendor_code", value: orderData.vendorSubaccountCode }
+            ]
+        },
+        callback: function(response) {
+            console.log('Payment completed successfully. Reference:', response.reference);
+            // Notify frontend state; server-side verification remains mandatory via webhook
+            updateUItoEscrowProcessing(response.reference);
+        },
+        onClose: function() {
+            alert('Payment window closed. Your escrow order remains pending.');
+        }
+    });
+    handler.openIframe();
+}
+</pre>
+
+            <h2>4. Server-Side Webhook & Verification Architecture</h2>
+            <p>Client-side callbacks can be manipulated or interrupted by network failures. Therefore, system state mutations must strictly rely on secure server-side webhook processing. Paystack signs all incoming webhooks using a HMAC SHA512 hash created with your Secret Key. Your endpoint must recalculate this signature and verify parity before updating database records.</p>
+
+            <h3>Node.js Webhook Verification Listener</h3>
+<pre>
+const crypto = require('crypto');
+const express = require('express');
+const app = express();
+
+app.post('/api/webhooks/paystack', express.json(), async (req, res) => {
+    // 1. Verify Request Signature
+    const hash = crypto.createHmac('sha512', process.env.PAYSTACK_SECRET_KEY)
+                       .update(JSON.stringify(req.body))
+                       .digest('hex');
+
+    if (hash !== req.headers['x-paystack-signature']) {
+        return res.status(401).send('Unauthorized webhook signature');
+    }
+
+    const event = req.body;
+
+    // 2. Process Successful Charge
+    if (event.event === 'charge.success') {
+        const { reference, amount, metadata, subaccount } = event.data;
+
+        // Perform atomic database transaction
+        await db.orders.update({
+            where: { reference: reference },
+            data: {
+                status: 'ESCROW_HELD',
+                paidAt: new Date(),
+                paystackFee: event.data.fees,
+                amountCollected: amount / 100
+            }
+        });
+
+        // Trigger notifications and unlock vendor work environment
+        await notifyVendorToStartWork(metadata.projectId);
+    }
+
+    // Always respond with 200 OK immediately to acknowledge receipt
+    res.sendStatus(200);
+});
+</pre>
+
+            <h2>5. Handling Multi-Split Distributions for Complex Platforms</h2>
+            <p>In scenarios involving marketplace transactions with multiple sellers, affiliate marketers, and platform royalties, simple single-subaccount splitting is insufficient. Paystack's Split Code API allows up to 100 subaccounts to share proceeds from a single checkout transaction.</p>
+
+            <p>Consider an order where a client hires a lead designer, an editor, and pays an affiliate referrer. The API payload defines explicit percentage splits or flat splits:</p>
+
+<pre>
+// Node.js example: Creating a Dynamic Multi-Split Rule Group
+const axios = require('axios');
+
+async function createMultiVendorSplitGroup() {
+    const response = await axios.post('https://api.paystack.co/split', {
+        name: "Order #9041 Dynamic Split",
+        type: "percentage",
+        currency: "NGN",
+        subaccounts: [
+            { subaccount: "ACCT_designer123", share: 70 }, // 70% to Primary Vendor
+            { subaccount: "ACCT_editor456", share: 15 },   // 15% to Secondary Specialist
+            { subaccount: "ACCT_affiliate789", share: 5 }  // 5% to Affiliate Referrer
+        ],
+        bearer_type: "all-proportional" // Gateway fees divided relative to share
+    }, {
+        headers: { Authorization: `Bearer ${process.env.PAYSTACK_SECRET_KEY}` }
+    });
+
+    return response.data.data.split_code; // Pass this split_code to transaction setup
+}
+</pre>
+
+            <h2>6. Best Practices for Compliance & Auditing</h2>
+            <p>Operating financial software in West Africa requires strict adherence to financial regulations and anti-money laundering frameworks. When engineering split and escrow payment workflows on Paystack, keep the following rules in place:</p>
+            <ol>
+                <li><strong>Strict KYC Verification:</strong> Ensure all subaccounts complete Paystack merchant onboarding and identity verification prior to receiving payouts. Unverified subaccounts can collect money, but payouts will be suspended.</li>
+                <li><strong>Idempotent Event Processing:</strong> Webhooks may be retried multiple times by Paystack servers. Design your webhook handlers to be strictly idempotent—checking whether a transaction has already been processed before mutating account balances or issuing credits.</li>
+                <li><strong>Automated Ledger Reconciliation:</strong> Maintain an internal double-entry ledger detailing base payments, platform fees, split commissions, and tax charges. Periodically cross-check internal database balances against Paystack's <code>/transaction/totals</code> API endpoints.</li>
+            </ol>
+
+            <div class="related-section">
+                <h2>Related Developer Guides</h2>
+                <div class="related-grid">
+                    <article class="blog-card">
+                        <div class="blog-card-media"><img src="assets/Paystack Fort Developers Image.png" alt="Paystack Main Guide"></div>
+                        <div class="blog-card-body">
+                            <div class="blog-topic-badge">Overview</div>
+                            <h3 class="blog-card-title">Comprehensive Paystack Payment Architecture</h3>
+                            <p class="blog-card-summary">Master the unified integration guide covering standard checkouts, split payouts, and recurring billing.</p>
+                            <a class="footer-a-link" href="paystack-payment-integration.html">Read Comprehensive Guide →</a>
+                        </div>
+                    </article>
+
+                    <article class="blog-card">
+                        <div class="blog-card-media"><img src="assets/Paystack Fort Developers Image.png" alt="Subscription Guide"></div>
+                        <div class="blog-card-body">
+                            <div class="blog-topic-badge">Subscriptions</div>
+                            <h3 class="blog-card-title">Paystack Recurring Billing & Subscriptions</h3>
+                            <p class="blog-card-summary">Build SaaS billing engines with Paystack Plans, Subscription Tokens, and retries.</p>
+                            <a class="footer-a-link" href="paystack-subscription-payments-integration.html">Read Subscription Guide →</a>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

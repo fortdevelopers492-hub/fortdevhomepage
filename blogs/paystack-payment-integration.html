@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="Fort Logo No Background.png" type="image/png">
+    <title>Comprehensive Paystack Payment Integration Guide - Fort Developers</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            --primary: #0a192f;
+            --primary-light: #1e293b;
+            --accent: #0288d1;
+            --accent-glow: #38bdf8;
+            --text-main: #334155;
+            --text-muted: #64748b;
+            --bg-light: #f8fafc;
+            --white: #ffffff;
+            --radius: 12px;
+            --shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.08);
+            --fort-blue-light: #3182ce;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+            line-height: 1.75;
+            color: var(--text-main);
+            background-color: var(--bg-light);
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1050px;
+            margin: 0 auto;
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background-color: var(--white);
+            color: var(--accent);
+            padding: 10px 22px;
+            text-decoration: none;
+            border-radius: var(--radius);
+            font-weight: 600;
+            font-size: 0.95rem;
+            margin-bottom: 24px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+            transition: all 0.2s ease;
+        }
+
+        .back-btn:hover {
+            background-color: var(--accent);
+            color: var(--white);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(2, 136, 209, 0.2);
+        }
+
+        .page-card {
+            background: var(--white);
+            padding: 50px;
+            border-radius: 16px;
+            border: 1px solid #e2e8f0;
+            box-shadow: var(--shadow);
+        }
+
+        header.hero {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        h1 {
+            color: var(--primary);
+            font-size: 2.3rem;
+            letter-spacing: -0.5px;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: var(--accent);
+            font-weight: 600;
+            font-size: 1.05rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 5px;
+        }
+
+        .article-meta {
+            margin-top: 15px;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        h2 {
+            color: var(--primary);
+            font-size: 1.6rem;
+            margin: 35px 0 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        p {
+            margin-bottom: 18px;
+            color: var(--text-main);
+            font-size: 1.02rem;
+        }
+
+        .img-slot {
+            background: #f1f5f9;
+            border-radius: var(--radius);
+            overflow: hidden;
+            border: 1px solid #e2e8f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .img-slot img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .img-center {
+            width: 100%;
+            max-height: 380px;
+            margin: 30px 0;
+        }
+
+        ul {
+            padding-left: 24px;
+            margin-bottom: 20px;
+        }
+
+        li {
+            margin-bottom: 10px;
+            color: var(--text-main);
+            font-size: 1rem;
+        }
+
+        pre {
+            background-color: var(--primary);
+            color: var(--accent-glow);
+            padding: 20px;
+            border-radius: var(--radius);
+            overflow-x: auto;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.88rem;
+            line-height: 1.4;
+            margin: 25px 0;
+            border: 1px solid var(--primary-light);
+        }
+
+        .footer-a-link {
+            color: var(--accent);
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .footer-a-link:hover {
+            text-decoration: underline;
+        }
+
+        .link-callout {
+            background-color: #f0f9ff;
+            border-left: 4px solid var(--accent);
+            padding: 16px 20px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+            font-size: 0.98rem;
+        }
+
+        * {
+            scrollbar-width: thin;
+            scrollbar-color: var(--fort-blue-light) rgba(0, 0, 0, 0.05);
+        }
+
+        ::-webkit-scrollbar {
+            width: 7px !important;
+            height: 7px !important;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.05) !important;
+            border-radius: 10px !important;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--fort-blue-light) !important;
+            border-radius: 10px !important;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #0288d1 !important;
+        }
+
+        .related-section { margin-top: 50px; padding-top: 30px; border-top: 2px solid #e2e8f0; }
+        .related-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-top: 20px; }
+        .blog-card { background: var(--white); border: 1px solid #e2e8f0; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.03); }
+        .blog-card-media { height: 160px; background: #e2e8f0; overflow: hidden; }
+        .blog-card-media img { width: 100%; height: 100%; object-fit: cover; }
+        .blog-card-body { padding: 20px; }
+        .blog-topic-badge { display: inline-block; background: #e0f2fe; color: var(--accent); padding: 4px 10px; border-radius: 6px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; margin-bottom: 10px; }
+        .blog-card-title { font-size: 1.1rem; color: var(--primary); margin-bottom: 10px; line-height: 1.3; }
+        .blog-card-summary { font-size: 0.88rem; color: var(--text-muted); margin-bottom: 15px; }
+
+        @media (max-width: 768px) {
+            .page-card { padding: 25px; }
+            h1 { font-size: 1.8rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="https://fort-site.com.ng/blogs.html" class="back-btn"><i class="fa-solid fa-arrow-left"></i>Back to Blogs & Documentry</a>
+        
+        <div class="page-card">
+            <header class="hero">
+                <h1>Comprehensive Paystack Payment Integration Guide</h1>
+                <div class="subtitle">Unified Architecture for Standard, Split, and Subscription Payments</div>
+                <div class="article-meta">
+                    <span><i class="fa-solid fa-user"></i> By Fort Engineering Team</span> | 
+                    <span><i class="fa-solid fa-calendar-days"></i> August 15, 2026</span> | 
+                    <span><i class="fa-solid fa-clock"></i> 8 Min Read</span>
+                </div>
+            </header>
+
+            <div class="img-slot img-center">
+                <img src="assets/Paystack Fort Developers Image.png" alt="General Paystack Payment Integration">
+            </div>
+
+            <p>Paystack has emerged as the premier payment gateway across African tech ecosystems, providing robust APIs for accepting Debit/Credit cards, Bank Transfers, USSD, and Mobile Money. For software engineers building scalable web and mobile applications, mastering the full spectrum of Paystack's integration models is vital for building reliable software platforms.</p>
+
+            <p>This master guide covers the architectural fundamentals of initializing charges, verifying payments securely via webhooks, and structuring specialized monetary flows across e-commerce, marketplace platforms, and SaaS products.</p>
+
+            <h2>1. Standard Payment Checkout Flow</h2>
+            <p>At the core of Paystack integration is the direct transaction lifecycle. Standard payments initiate when a user checks out on your web client. The application requests a unique payment reference from Paystack, pops open the payment modal (or redirects the customer to a secure checkout page), and captures funds.</p>
+
+            <p>Key security requirement: Never rely solely on front-end browser callbacks to grant user access or update order status in your primary database. Always perform cryptographic verification of Paystack webhooks on your application server.</p>
+
+<pre>
+// Server-Side Initialization via Paystack REST API
+const axios = require('axios');
+
+async function initializeStandardPayment(userEmail, amountInNGN) {
+    const response = await axios.post('https://api.paystack.co/transaction/initialize', {
+        email: userEmail,
+        amount: amountInNGN * 100, // Converted to kobo
+        callback_url: "https://yourdomain.com/verify-payment"
+    }, {
+        headers: { Authorization: `Bearer ${process.env.PAYSTACK_SECRET_KEY}` }
+    });
+
+    return response.data.data.authorization_url; // Redirect user here
+}
+</pre>
+
+            <h2>2. Multi-Vendor Split Payments & Escrow Systems</h2>
+            <p>Multi-vendor marketplaces, freelancing platforms, and multi-party software systems require routing single transaction payments to multiple bank accounts automatically. Paystack's Split Payment features enable platforms to automatically assign earnings to third-party subaccounts while retaining platform commission fees seamless at checkout time.</p>
+            
+            <p>Additionally, combining split payments with custom escrow state machines allows platforms to lock funds until services or physical products are delivered and verified by the customer.</p>
+
+            <div class="link-callout">
+                For more info, see our documentry on <a class="footer-a-link" href="paystack-escrow-integration.html">paystacks split payments</a>.
+            </div>
+
+            <h2>3. Recurring Subscriptions & Plan Automation</h2>
+            <p>For Software-as-a-Service (SaaS) products, membership portals, and recurring billers, Paystack provides an automated subscription engine. By creating payment Plans with pre-defined billing intervals (daily, weekly, monthly, annually) and charging customers via re-usable Authorization Tokens, businesses can generate predictable recurring revenue automatically.</p>
+
+            <p>The billing engine handles automatic retries on failed cards, notifies customers when cards expire, and broadcasts real-time lifecycle webhooks directly to your app backend.</p>
+
+            <div class="link-callout">
+                For more info, read our full documentry on <a class="footer-a-link" href="paystack-subscription-payments-integration.html">paystack subscription payments</a>.
+            </div>
+
+            <h2>4. Security, Webhooks, and Reconciliation Checklist</h2>
+            <p>Regardless of whether you are implementing standard checkouts, complex multi-vendor splits, or automated subscriptions, keep these essential practices in production:</p>
+            <ul>
+                <li><strong>HMAC SHA512 Verification:</strong> Always validate the <code>x-paystack-signature</code> header on every incoming webhook event before performing internal operations.</li>
+                <li><strong>Idempotency Checks:</strong> Record processed transaction IDs to guard against duplicate webhook delivery.</li>
+                <li><strong>Environment Management:</strong> Keep API Secret Keys strictly stored in environment variables, never committing test or live keys to source control.</li>
+            </ul>
+
+            <div class="related-section">
+                <h2>Explore Focused Technical Guides</h2>
+                <div class="related-grid">
+                    <article class="blog-card">
+                        <div class="blog-card-media"><img src="assets/Paystack Fort Developers Image.png" alt="Split Payments"></div>
+                        <div class="blog-card-body">
+                            <div class="blog-topic-badge">Marketplace</div>
+                            <h3 class="blog-card-title">Split Payments & Escrow Integration</h3>
+                            <p class="blog-card-summary">Deep dive into subaccounts, multi-split rules, and state machine escrow holds.</p>
+                            <a class="footer-a-link" href="paystack-escrow-integration.html">Read Documentation →</a>
+                        </div>
+                    </article>
+
+                    <article class="blog-card">
+                        <div class="blog-card-media"><img src="assets/Paystack Fort Developers Image.png" alt="Subscription Payments"></div>
+                        <div class="blog-card-body">
+                            <div class="blog-topic-badge">SaaS</div>
+                            <h3 class="blog-card-title">Subscription & Recurring Billing Architecture</h3>
+                            <p class="blog-card-summary">Learn how to create plans, store re-usable authorization tokens, and handle dunning.</p>
+                            <a class="footer-a-link" href="paystack-subscription-payments-integration.html">Read Documentation →</a>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
