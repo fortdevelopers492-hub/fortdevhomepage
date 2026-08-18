@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="fort-logo-no-background.png" type="image/png">
+    <title>Fort Developers - Privacy Policy Agreement Context</title>
+    <style>
+        /* General Page Styling */
+        :root {-fort-blue-light: #0288d1}
+
+        body { 
+            font-family: Arial, Helvetica, sans-serif; 
+            line-height: 1.7; 
+            color: #2d3748; 
+            padding: 40px 20px; 
+            background-color: #f4f7f6; 
+            max-width: 900px; 
+            margin: 0 auto; 
+        }
+
+        /* Container Styling */
+        .legal-box { 
+            background: #ffffff; 
+            padding: 40px; 
+            border-radius: 8px; 
+            border: 1px solid #cbd5e0; 
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05); 
+        }
+
+        /* Typography */
+        h1 { 
+            color: #003366; 
+            font-size: 2rem; 
+            margin-bottom: 10px; 
+            line-height: 1.3;
+        }
+
+        h2 { 
+            color: #003366; 
+            font-size: 1.4rem; 
+            margin-top: 30px; 
+            margin-bottom: 15px;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 8px;
+        }
+
+        h3 { 
+            color: #0288d1; 
+            font-size: 1.15rem; 
+            margin-top: 20px;
+        }
+
+        p, li { 
+            font-size: 1rem; 
+            color: #4a5568; 
+            margin-bottom: 15px; 
+        }
+
+        ul {
+            margin-left: 20px;
+            margin-bottom: 20px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        /* Highlight & Alert Styling */
+        .highlight-clause {
+            background-color: #ebf8ff;
+            border-left: 4px solid #0288d1;
+            padding: 15px 20px;
+            margin: 20px 0;
+            border-radius: 0 4px 4px 0;
+        }
+
+        /* Back Button Styling */
+        .back-btn { 
+            display: inline-block; 
+            background-color: #0288d1; 
+            color: white; 
+            padding: 12px 24px; 
+            text-decoration: none; 
+            border-radius: 4px; 
+            font-weight: bold; 
+            margin-bottom: 25px; 
+            transition: background-color 0.2s ease-in-out;
+        }
+
+        .back-btn:hover {
+            background-color: #01579b;
+        }
+
+        /* Sub-meta Info */
+        .meta-info {
+            font-size: 0.9rem;
+            color: #718096;
+            margin-bottom: 20px;
+        }
+
+        /* =========================================================
+           RESPONSIVE MEDIA QUERIES FOR SMALLER SCREENS
+           ========================================================= */
+        @media screen and (max-width: 768px) {
+            body {
+                padding: 20px 10px;
+            }
+
+            .legal-box {
+                padding: 25px 15px;
+            }
+
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            h2 {
+                font-size: 1.2rem;
+            }
+
+            h3 {
+                font-size: 1.05rem;
+            }
+
+            p, li {
+                font-size: 0.92rem;
+                line-height: 1.5;
+            }
+
+            .back-btn {
+                padding: 10px 18px;
+                font-size: 0.9rem;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            body {
+                padding: 10px 5px;
+            }
+
+            .legal-box {
+                padding: 18px 12px;
+                border-radius: 4px;
+            }
+
+            h1 {
+                font-size: 1.25rem;
+            }
+
+            h2 {
+                font-size: 1.05rem;
+            }
+
+            h3 {
+                font-size: 0.95rem;
+            }
+
+            p, li {
+                font-size: 0.85rem;
+            }
+
+            .highlight-clause {
+                padding: 10px 12px;
+            }
+        }
+
+        /* Media wrapper & elements */
+        .media-container-ad {
+            margin: 15px 0;
+            width: 100%;
+            max-height: 250px;
+            overflow: hidden;
+            border-radius: 6px;
+        }
+
+        .media-container-ad img, 
+        .media-container-ad video {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: cover;
+        }
+
+        /* Button & disabled state styling */
+        .btn-blue-ad {
+            background-color: #007bff;
+            color: #ffffff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.2s ease, opacity 0.2s ease;
+        }
+
+        .btn-blue-ad:hover:not(:disabled) {
+            background-color: #0056b3;
+        }
+
+        .btn-blue-ad:disabled {
+            background-color: #6c757d;
+            cursor: not-allowed;
+            opacity: 0.65;
+        }
+
+        /* Overlay styling */
+        .modal-overlay-ad {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        /* Modal box container */
+        .modal-box-ad {
+            background-color: #ffffff;
+            padding: 24px;
+            max-width: 450px;
+            width: 90%;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .text-center {
+            text-align: center !important;
+        }
+
+        .rounded-rect {
+            border-radius: 8px;
+            border: 1px solid var(--fort-gray-border);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
+        }
+        
+        /* =========================================================
+        CUSTOM SCROLLBAR STYLES (Code 1 & Code 2)
+        ========================================================= */
+
+        /* Firefox standard scrollbar properties */
+        * {
+            scrollbar-width: thin;
+            scrollbar-color: var(--fort-blue-light, #3182ce) rgba(0, 0, 0, 0.05);
+        }
+
+        /* WebKit-based browsers (Chrome, Edge, Safari) */
+        ::-webkit-scrollbar {
+            width: 7px !important;
+            height: 7px !important; /* Handles horizontal scrollbars on <pre> and tables */
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.05) !important;
+            border-radius: 10px !important;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--fort-blue-light, #3182ce) !important;
+            border-radius: 10px !important;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #0288d1 !important; /* Subtle hover highlight matching accent colors */
+        }
+
+    </style>
+</head>
+<body>
+
+    <a href="index.html" class="back-btn">← Go Back</a>
+
+    <div class="legal-box">
+        <h1>Fort Developers Platform Privacy Policy Core Legal Agreement Context Document</h1>
+        <p><strong>Effective Processing Session Operational Date Framework Context Baseline Stamp Log: June 2026</strong></p>
+        <hr style="margin: 20px 0; border: 0; border-top: 1px solid #cbd5e0;">
+        
+        <h2>1. Scope of Data Ingestion and Telemetry Traces Tracking Operations Registers Matrix</h2>
+        <p>Fort Developers websites and applications log platform authentication information vectors properties (including identity name strings records expressions elements indices values items data columns fields contexts and local browser device orientation preferences configurations states matrices maps) solely to compute performance analytics indicators metrics models and secure local inventory distribution logic constraints boundaries variables parameters routing channels pipeline processes checks maps loops indicators. This telemetry data ingestion is crucial for real-time memory handling, session tracking, and localized software execution across all globally deployed platforms built by our engineering team for public utility.</p>
+        <p>When a user initiates a network connection with our deployed server clusters, an automated data collection process maps fundamental technical metadata parameters. This metadata is completely restricted from harvesting personal physical profiles; instead, it targets structural elements such as HTTP headers, browser version codes, client side rendering latency markers, and network packet transmission indices. Gathering these performance indicators allows our load-balancing script systems to distribute database queries dynamically across server nodes, ensuring maximum system resilience, mitigating distributed denial-of-service attempts, and stabilizing user experiences against variable regional ISP routing constraints.</p>
+        
+        <h2>2. Data Synchronization Controls Framework Parity Definitions Bounds</h2>
+        <p>Platform accounts data sets, posted catalog inventory assets nodes items tracking structural files attributes definitions parameters numbers values patterns, message transaction logs pipelines streams text rows registers, and system troubleshooting metrics logs records traces elements remain encrypted inside localized persistent sandbox memory registers blocks storage. Core entities matrices data schemas properties variables values logs parameters are updated regularly without administrative manual interventions to ensure uniform uptime across all system channels. These automated structural checks protect the system's operational layers from unintended service variations or unauthorized node intercept paths.</p>
+        <p>To preserve complete structural integrity, our data pipelines utilize advanced validation routines that constantly run cross-checks between decentralized runtime environments and primary storage engines. If any data node exhibits variance or corrupt structural patterns during transactional operations, our systems execute an automatic rollback routine to a verified historical baseline log stamp. This continuous alignment methodology shields user profiles, listing arrays, and text entries from corruption during peak traffic phases. The system ensures that localized application caches sync perfectly with the centralized ledger without exposing transmission pathways to external data brokers or unauthorized client-side code blocks.</p>
+        
+        <h2>3. Third-Party Inline Tracking Script Infrastructure Implementations Frameworks Slots Boundaries</h2>
+        <p>We leverage automated script execution systems channels trackers (such as Google AdSense programmatic monetization tracking layout loops parameters elements arrays logic sets blocks) to serve contextually optimized digital marketing layout modules banners spaces frames blocks tracking scripts directly across multi-grid loops layouts rows instances spaces nodes inside our runtime rendering layouts frames. These scripts utilize localized, non-identifiable parameters to evaluate visibility layers, handle browser ad responses, and maintain economic feasibility vectors supporting our open-access public software tools.</p>
+        <p>These specialized tracking nodes collect completely anonymous browser environment metrics, such as ad container interaction ratios, rendering speed markers, and geographical location tags at a generalized state or country level. Under no circumstances do these third-party script integrations access user chat history databases, secure account profiles, or raw data fields. The integration layout slots are meticulously sandboxed within the underlying code framework to prevent cross-document script injection, thereby safeguarding user identity boundaries while enabling sustainable structural monetization frameworks to run concurrently alongside platform routines.</p>
+        
+        <h2>4. Data Retention, Pure Purge Control Pipelines Logic Metrics Lifespans Rules</h2>
+        <p>Users possess complete autonomy execution privileges commands paths options levers keys to delete posted operational inventory catalog assets schemas structures text rows items parameters, purge communication history context streams containers channels threads entries metrics loops directly from settings panels matrices nodes without data replication traces residues left behind inside operational ledger databases variables mapping schemas registries. Once a hard deletion transaction request is initiated by a user terminal, the corresponding data block maps undergo an unrecoverable overwrite routine within forty-eight hours across live distribution buffers.</p>
+        <p>This purge protocol is absolute and targets all structural records including indexed cache values, query parameters, background diagnostic memory maps, and temporary relational database linkages. When you choose to eliminate an asset or profile record from your dashboard settings, our cloud infrastructure triggers a cascade deletion routine that ensures zero backup persistence after the processing window concludes. This strict framework guarantees that users maintain absolute sovereignty over their data, leaving no ghost records or analytical tracking fragments stored anywhere within Fort Developers' storage arrays.</p>
+
+        <h2>5. Confidentiality of Customer Care Chats and Core Support Operations</h2>
+        <p>Fort Developers ensure that the chat history, technical support tickets, and communication logs with customer care portals remain undisclosed and strictly confidential on their end. Access to these dialogue databases is restricted to authorized operations managers solely for resolving operational platform issues. It must be explicitly recognized by all platform users that any external leak, loss of privacy, or lack of confidentiality regarding customer care chat interactions is likely triggered from the user's end through insecure client device access, local browser extensions, or intentional sharing of transcripts, exempting Fort Developers from liability.</p>
+        <p>Users are strongly urged to safeguard their login credentials, clear session cookies when utilizing shared network terminals, and audit active web browser add-ons for unauthorized data reading capabilities. Our internal infrastructure uses strict database isolation parameters, meaning customer care records are siloed entirely from public search vectors or standard marketplace listings. Because our server-side connection paths use high-grade transport layer security protocols, structural leak windows only occur if an external client terminal endpoint is compromised or compromised by localized malicious execution loops.</p>
+
+        <h2>6. Global Data Handling Compliance Vectors and Security Protocols</h2>
+        <p>Because Fort Developers creates webapps and web spaces accessible worldwide, our data pipeline frameworks apply stringent encryption standards to safeguard traffic channels. We utilize industry-standard security assertions to shield user identities, preventing cross-site scripting vulnerabilities or data leaks. Any adjustments to data ingestion protocols will be appended directly to this central structural log to ensure complete developer transparency, providing all users with clear insight into how their web layouts manage operational tracking variables.</p>
+        <p>Our engineering matrix actively aligns data processing states with modern international security frameworks to protect user rights globally. We handle unexpected data architecture disruptions by maintaining hot-swappable container configurations that preserve encryption parameters during failover events. By remaining entirely open about our algorithmic layout rules and storage structures, we give users the clarity needed to safely navigate our applications, knowing that their underlying operational tracking matrix is built entirely upon non-invasive technical parameters.</p>
+    </div>
+
+</body>
+</html>

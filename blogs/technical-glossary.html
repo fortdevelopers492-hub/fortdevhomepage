@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="Fort Logo No Background.png" type="image/png">
-    <title>Comprehensive Web Development & E-Commerce Technical Glossary</title>
+    <link rel="icon" href="fort-logo-no-background.png" type="image/png">
+    <title>Advanced Software Engineering: A Technical Compendium</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         :root {
@@ -20,336 +20,141 @@
             --shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.08);
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
-            line-height: 1.75;
-            color: var(--text-main);
-            background-color: var(--bg-light);
-            padding: 40px 20px;
-        }
-
-        .container {
-            max-width: 1050px;
-            margin: 0 auto;
-        }
-
-        .back-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background-color: var(--white);
-            color: var(--accent);
-            padding: 10px 22px;
-            text-decoration: none;
-            border-radius: var(--radius);
-            font-weight: 600;
-            font-size: 0.95rem;
-            margin-bottom: 24px;
-            border: 1px solid #e2e8f0;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
-            transition: all 0.2s ease;
-        }
-
-        .back-btn:hover {
-            background-color: var(--accent);
-            color: var(--white);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(2, 136, 209, 0.2);
-        }
-
-        .page-card {
-            background: var(--white);
-            padding: 50px;
-            border-radius: 16px;
-            border: 1px solid #e2e8f0;
-            box-shadow: var(--shadow);
-        }
-
-        header.hero {
-            text-align: center;
-            margin-bottom: 40px;
-            padding-bottom: 30px;
-            border-bottom: 1px solid #f1f5f9;
-        }
-
-        h1 {
-            color: var(--primary);
-            font-size: 2.3rem;
-            letter-spacing: -0.5px;
-            margin-bottom: 10px;
-        }
-
-        .subtitle {
-            color: var(--accent);
-            font-weight: 600;
-            font-size: 1.05rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        h2 {
-            color: var(--primary);
-            font-size: 1.6rem;
-            margin: 35px 0 15px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        p {
-            margin-bottom: 18px;
-            color: var(--text-main);
-            font-size: 1.02rem;
-        }
-
-        /* Image Layout Components */
-        .img-slot {
-            background: #f1f5f9;
-            border-radius: var(--radius);
-            overflow: hidden;
-            border: 1px solid #e2e8f0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .img-slot img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-        }
-
-        .img-center {
-            width: 100%;
-            max-height: 380px;
-            margin: 30px 0;
-        }
-
-        .grid-split {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-            align-items: center;
-            margin: 30px 0;
-        }
-
-        .img-side {
-            height: 320px;
-        }
-
-        /* Lists */
-        ul {
-            padding-left: 20px;
-            margin-bottom: 20px;
-        }
-
-        li {
-            margin-bottom: 10px;
-            color: var(--text-main);
-            font-size: 1rem;
-        }
-
-        /* Code/Diagram Blocks */
-        pre {
-            background-color: var(--primary);
-            color: var(--accent-glow);
-            padding: 20px;
-            border-radius: var(--radius);
-            overflow-x: auto;
-            font-family: 'Courier New', Courier, monospace;
-            font-size: 0.88rem;
-            line-height: 1.4;
-            margin: 25px 0;
-            border: 1px solid var(--primary-light);
-        }
-
-        /* Data Tables */
-        .table-responsive {
-            overflow-x: auto;
-            margin: 25px 0;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            background: var(--white);
-            border-radius: var(--radius);
-            overflow: hidden;
-            border: 1px solid #e2e8f0;
-        }
-
-        th, td {
-            padding: 14px 18px;
-            text-align: left;
-            border-bottom: 1px solid #e2e8f0;
-        }
-
-        th {
-            background-color: var(--primary);
-            color: var(--white);
-            font-weight: 600;
-            font-size: 0.95rem;
-        }
-
-        td {
-            font-size: 0.95rem;
-            color: var(--text-main);
-        }
-
-        tr:last-child td {
-            border-bottom: none;
-        }
-
-        /* Contact Section */
-        .contact-container {
-            background: linear-gradient(135deg, #e0f2fe 0%, #e1f5fe 100%);
-            padding: 30px;
-            border-radius: var(--radius);
-            border-left: 5px solid var(--accent);
-            margin-top: 30px;
-        }
-
-        .contact-container h3 {
-            color: var(--primary);
-            margin-bottom: 15px;
-            font-size: 1.2rem;
-        }
-
-        .contact-links {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-        }
-
-        .contact-item {
-            background: var(--white);
-            padding: 12px 20px;
-            border-radius: 8px;
-            font-size: 0.95rem;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.04);
-            border: 1px solid #cbd5e1;
-        }
-
-        .contact-item strong {
-            color: var(--primary);
-        }
-
-        .contact-item a {
-            color: var(--accent);
-            text-decoration: none;
-        }
-
-        .contact-item a:hover {
-            text-decoration: underline;
-        }
-
-        /* Responsive Layout Adjustments */
-        @media (max-width: 768px) {
-            .page-card { padding: 25px; }
-            .grid-split { grid-template-columns: 1fr; }
-            .grid-split.reverse { display: flex; flex-direction: column-reverse; }
-            h1 { font-size: 1.8rem; }
-        } 
-
-        /* =========================================================
-        CUSTOM SCROLLBAR STYLES (Code 1 & Code 2)
-        ========================================================= */
-
-        /* Firefox standard scrollbar properties */
-        * {
-            scrollbar-width: thin;
-            scrollbar-color: var(--fort-blue-light, #3182ce) rgba(0, 0, 0, 0.05);
-        }
-
-        /* WebKit-based browsers (Chrome, Edge, Safari) */
-        ::-webkit-scrollbar {
-            width: 7px !important;
-            height: 7px !important; /* Handles horizontal scrollbars on <pre> and tables */
-        }
-
-        ::-webkit-scrollbar-track {
-            background: rgba(0, 0, 0, 0.05) !important;
-            border-radius: 10px !important;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: var(--fort-blue-light, #3182ce) !important;
-            border-radius: 10px !important;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: #0288d1 !important; /* Subtle hover highlight matching accent colors */
-        }
-
-        .related-section { margin-top: 50px; padding-top: 30px; border-top: 2px solid #e2e8f0; }
-        .related-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-top: 20px; }
-        .blog-card { background: var(--white); border: 1px solid #e2e8f0; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.03); }
-        .blog-card-media { height: 160px; background: #e2e8f0; overflow: hidden; }
-        .blog-card-media img { width: 100%; height: 100%; object-fit: cover; }
-        .blog-card-body { padding: 20px; }
-        .blog-topic-badge { display: inline-block; background: #e0f2fe; color: var(--accent); padding: 4px 10px; border-radius: 6px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; margin-bottom: 10px; }
-        .blog-card-title { font-size: 1.1rem; color: var(--primary); margin-bottom: 10px; line-height: 1.3; }
-        .blog-card-summary { font-size: 0.88rem; color: var(--text-muted); margin-bottom: 15px; }
-        .btn-read-more { color: var(--accent); font-weight: 600; text-decoration: none; font-size: 0.9rem; display: inline-flex; align-items: center; gap: 6px; }
-
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Segoe UI', system-ui, sans-serif; line-height: 1.8; color: var(--text-main); background-color: var(--bg-light); padding: 40px 20px; }
+        .container { max-width: 1050px; margin: 0 auto; }
+        .back-btn { display: inline-flex; align-items: center; gap: 8px; background-color: var(--white); color: var(--accent); padding: 10px 22px; text-decoration: none; border-radius: var(--radius); font-weight: 600; font-size: 0.95rem; margin-bottom: 24px; border: 1px solid #e2e8f0; transition: all 0.2s ease; }
+        .back-btn:hover { background-color: var(--accent); color: var(--white); transform: translateY(-2px); }
+        .page-card { background: var(--white); padding: 60px; border-radius: 16px; border: 1px solid #e2e8f0; box-shadow: var(--shadow); }
+        header.hero { text-align: center; margin-bottom: 50px; padding-bottom: 40px; border-bottom: 2px solid #f1f5f9; }
+        h1 { color: var(--primary); font-size: 2.5rem; letter-spacing: -1px; margin-bottom: 15px; }
+        .subtitle { color: var(--accent); font-weight: 700; text-transform: uppercase; letter-spacing: 2px; font-size: 0.9rem; margin-bottom: 15px; }
+        h2 { color: var(--primary); font-size: 1.8rem; margin: 50px 0 20px; display: flex; align-items: center; gap: 12px; border-left: 4px solid var(--accent); padding-left: 15px; }
+        h3 { color: var(--primary-light); margin: 30px 0 15px; font-size: 1.3rem; }
+        p { margin-bottom: 20px; font-size: 1.05rem; }
+        .img-slot { background: #f1f5f9; border-radius: var(--radius); overflow: hidden; border: 1px solid #e2e8f0; margin: 40px 0; }
+        .img-slot img { width: 100%; height: auto; display: block; }
+        pre { background-color: var(--primary); color: var(--accent-glow); padding: 25px; border-radius: var(--radius); overflow-x: auto; font-family: 'Consolas', monospace; font-size: 0.9rem; line-height: 1.5; margin: 30px 0; }
+        table { width: 100%; border-collapse: collapse; margin: 30px 0; background: var(--white); }
+        th, td { padding: 16px; border: 1px solid #e2e8f0; text-align: left; }
+        th { background: var(--primary); color: white; }
+        @media (max-width: 768px) { .page-card { padding: 30px; } }
     </style>
 </head>
 <body>
     <div class="container">
+        <a href="#" class="back-btn"><i class="fa-solid fa-arrow-left"></i> Return to Documentation Home</a>
         <div class="page-card">
             <header class="hero">
+                <p class="subtitle">Fort Developers Technical Engineering Index</p>
                 <h1>Comprehensive Web Development & E-Commerce Technical Glossary</h1>
-                <p>Standardized Industry Terminology & Architectural Concepts</p>
-                <div class="article-meta text-muted margin-top-xs">
-                    <span><i class="fa-solid fa-user"></i> By Fort Engineering Team</span>  |  
-                    <span><i class="fa-solid fa-calendar-days"></i> August 15, 2026</span>  |  
-                    <span><i class="fa-solid fa-clock"></i> 7 Min Read</span>
+                <p>Standardized Industry Terminology, Architectural Patterns, and Computer Graphics Engineering Principles</p>
+                <div class="article-meta">
+                    <span><i class="fa-solid fa-user"></i> By Fort Engineering Team</span> | 
+                    <span><i class="fa-solid fa-calendar-days"></i> August 18, 2026</span> | 
+                    <span><i class="fa-solid fa-clock"></i> 18 Min Read</span>
                 </div>
             </header>
 
-            <!-- IMAGE SLOT: CENTER HERO BANNER -->
-            <div class="img-slot img-center">
-                <img src="Fort Developers.jfif" alt="Fort Graphics Marketplace Platform">
+            <div class="img-slot">
+                <img src="assets/ecommerce-blog-image.png" alt="Technical Architecture Diagram">
             </div>
 
-            <p>This technical knowledge base index defines core software development, database, payment security, and browser graphics concepts utilized across the Fort Developers ecosystem.</p>
+            <p>Welcome to the authoritative engineering glossary maintained by the Fort Developers technical team. Modern enterprise software engineering sits at the intersection of high-performance rendering, distributed transactional integrity, and client-side application architecture. This technical knowledge base index defines and dissects core software development, database, payment security, and browser graphics concepts utilized across the modern web ecosystem and specifically within the Fort Developers platform architecture.</p>
+            
+            <p>We believe that understanding the "how" and "why" behind underlying technologies—from the way pixels are blitted to the screen to the ACID compliance of a database transaction—is essential for building robust, scalable solutions. This glossary is designed to serve as both an educational resource and a architectural blueprint for future feature development.</p>
 
-            <h2>Blitting (Bit-Block Transfer)</h2>
-            <p>A computer graphics operation where two-dimensional bitmap images are pushed directly into primary memory framebuffers for accelerated UI rendering.</p>
+            <h2><i class="fa-solid fa-desktop"></i> Blitting (Bit-Block Transfer)</h2>
+            <p><strong>Blitting</strong>—short for <em>Bit-Block Transfer</em>—is a foundational computer graphics operation in which a two-dimensional array of bitmapped pixel data is transferred directly from one region of memory (such as an off-screen buffer or sprite sheet) into another memory array (such as the primary screen framebuffer). Originating in early visual display hardware, blitting remains a critical technique in web browser graphic acceleration, HTML5 Canvas 2D manipulation, UI rendering, and web-based video games.</p>
+            
+            <p>At its core, blitting avoids expensive per-pixel computation in high-level software by delegating memory block moves directly to specialized hardware or low-level CPU assembly routines (like SIMD instructions). Instead of recalculating lighting, vectors, or mathematical curves for every frame, pre-rendered raster images are rapidly copied into the screen buffer during each render cycle. This is particularly vital for the Fort Graphics Marketplace where high-fidelity asset previews need to be rendered dynamically without taxing the main browser thread.</p>
 
-            <h2>Escrow Verification</h2>
-            <p>A financial engineering pattern where funds deposited by a client are temporarily held by a trusted intermediary platform until contractual milestone conditions pass verification.</p>
+            <p>Modern browser rendering pipelines utilize the <code>CanvasRenderingContext2D.drawImage()</code> method to abstract the complex task of blitting. When we trigger a draw call, the browser's compositor optimizes the operation by utilizing GPU acceleration, transferring textures across Video RAM (VRAM) buffers rather than executing slow, main-memory read/write loops. This shift offloads the heavy lifting from the CPU, allowing for smooth 60fps interactions even in complex applications like our 3D Chess or Snakes and Ladders games.</p>
 
-            <h2>Single-Page Application (SPA)</h2>
-            <p>A web application that interacts with the user by dynamically rewriting the current web page rather than loading entire new pages from a server, improving user experience speeds.</p>
+            <pre>
+// Example: Hardware-Accelerated Sprite Blitting in HTML5 Canvas
+const canvas = document.getElementById('gameCanvas');
+const ctx = canvas.getContext('2d');
+const spriteSheet = new Image();
+spriteSheet.src = 'sprites.png';
+
+// Source rectangle (x: 0, y: 64, w: 32, h: 32) blitted to 
+// Destination canvas (x: 100, y: 150, w: 64, h: 64)
+function renderFrame() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    // The drawImage call handles the blitting logic internally
+    ctx.drawImage(spriteSheet, 0, 64, 32, 32, 100, 150, 64, 64);
+    requestAnimationFrame(renderFrame);
+}
+            </pre>
+
+            <p>Beyond simple copying, blitting operations frequently incorporate pixel-level compositing logic. This includes <strong>Alpha Blending</strong> (the process of combining source and destination color values based on transparency channels) and <strong>Bitwise Raster Operations (ROPs)</strong>. For example, using XOR drawing techniques allows for efficient UI cursor highlighting or mask-based rendering, where we can invert colors in a specific region without needing to redraw the entire background context, which is critical for conserving battery life on mobile devices.</p>
+
+            <h2><i class="fa-solid fa-shield-halved"></i> Escrow Verification Architecture</h2>
+            <p><strong>Escrow Verification</strong> is an architectural and financial engineering pattern used in multi-party digital commerce platforms to mitigate transactional counterparty risk. In high-value digital asset purchases, custom freelance deliverables, or agency service contracts, neither party wishes to assume full financial or operational risk: buyers fear paying for non-existent or substandard work, while sellers fear delivering work without receiving payment. Our solution at Fort Developers is the implementation of a programmatic, trustless escrow service.</p>
+
+            <p>The system acts as a neutral, digital intermediary that holds buyer funds in a locked ledger account. Release of these funds to the seller is conditionally gated by verifiable operational milestones, cryptographic signatures, or automated validation suites. This system ensures that capital is only released once the "delivery" state has been cryptographically or administratively confirmed.</p>
+
+            <h3>The Transactional Lifecycle</h3>
+            <p>In our implementation, we track the transaction state via a strictly finite state machine (FSM). By utilizing this approach, we avoid race conditions where a payment might be released prematurely. The system transitions through the following phases:</p>
+
+            <table>
+                <tr><th>Phase</th><th>System State</th><th>Responsibility</th></tr>
+                <tr><td>Lock-In</td><td><code>FUNDS_ESCROWED</code></td><td>Buyer deposits payment.</td></tr>
+                <tr><td>Execution</td><td><code>PENDING_VERIFICATION</code></td><td>Seller submits deliverables.</td></tr>
+                <tr><td>Verification</td><td><code>MILESTONE_PASSED</code></td><td>System validates file integrity.</td></tr>
+                <tr><td>Settlement</td><td><code>TRANSACTION_SETTLED</code></td><td>Ledger updates, fees deducted.</td></tr>
+            </table>
+
+            <p>In modern e-commerce systems, escrow verification relies heavily on idempotent API webhooks. This means that if a network failure occurs, the same request can be sent multiple times without causing duplicate payments or errors. By combining this with a double-entry ledger database schema, we provide a complete audit trail. If disputes arise during the verification phase, automated arbitration logic—or, in complex cases, human-in-the-loop moderation—freezes state transitions until specific resolution conditions are met, ensuring fairness for both the creator and the client.</p>
+
+            <h2><i class="fa-solid fa-code"></i> Single-Page Application (SPA) Paradigms</h2>
+            <p>A <strong>Single-Page Application (SPA)</strong> is a web application architectural model that delivers a fluid, app-like user experience by loading a single HTML shell document and dynamically updating the Document Object Model (DOM) as the user interacts with the application. Unlike traditional Multi-Page Applications (MPAs) that perform full page reloads and round-trip server responses on every navigation request, SPAs fetch data asynchronously (typically as JSON payloads via REST APIs or Firebase Firestore listeners) and render UI components purely on the client side.</p>
+
+            <p>The engine driving an SPA relies on client-side routing, state management, and virtual DOM diffing algorithms. Frameworks like React, Vue.js, or raw vanilla JS implementations utilize HTML5 History APIs (<code>pushState</code> and <code>replaceState</code>) to manipulate browser navigation URLs without triggering browser page reloads. This is the bedrock of the Fort Mart experience, where browsing thousands of products feels instantaneous because only the data, not the structural HTML, is reloaded.</p>
+
+            <p>However, the shift to SPAs introduces complex trade-offs. The "Single Page" model requires a sophisticated approach to memory management. Because the browser never refreshes, event listeners, intervals, and timers must be manually cleared to prevent memory leaks—a common culprit for performance degradation in long-running sessions. Furthermore, because the entire application logic exists in JavaScript, we must handle SEO challenges by employing Server-Side Rendering (SSR) for initial load stages, or by using Static Site Generation (SSG) to pre-render the shell for crawlers.</p>
+
+            <h2><i class="fa-solid fa-database"></i> Database Normalization & Integrity</h2>
+            <p>Data integrity is the cornerstone of any digital marketplace. We utilize <strong>Database Normalization</strong>—the process of organizing data to minimize redundancy and improve data integrity. In our relational database models, normalization generally involves decomposing tables into smaller, related entities and defining relationships between them using primary and foreign keys.</p>
+
+            <p>For example, in the Fort Graphics platform, rather than storing user details inside every single order record (which would lead to data anomalies if a user changed their email), we maintain a separate <code>Users</code> table and link it via a unique user ID. This ensures that an update to the user's profile is reflected globally across all orders, chat threads, and payments without needing to perform massive, risky table updates.</p>
+
+            <p>We employ three standard normal forms in our core architecture:</p>
+            <ul>
+                <li><strong>1NF (First Normal Form):</strong> Ensuring each table column contains atomic, indivisible values and each record is unique.</li>
+                <li><strong>2NF (Second Normal Form):</strong> Meeting 1NF requirements and removing partial functional dependencies (all non-key attributes are fully dependent on the primary key).</li>
+                <li><strong>3NF (Third Normal Form):</strong> Meeting 2NF and ensuring no transitive dependencies (columns depend only on the primary key, not on other non-key columns).</li>
+            </ul>
+
+            <p>By enforcing these rules, we reduce storage overhead and increase the speed of queries. However, we acknowledge that in high-read, low-write scenarios (like product catalogs), we occasionally "denormalize" data—intentionally duplicating data—to reduce complex join operations and speed up response times for the end user.</p>
+
+            <h2><i class="fa-solid fa-bolt"></i> Asynchronous Message Queuing</h2>
+            <p>In high-traffic platforms, not all tasks can be completed synchronously. Sending an email receipt, generating a thumbnail for an uploaded image, or processing a complex payout should not block the user interface. This is where <strong>Asynchronous Message Queuing</strong> becomes vital. When a user completes an action, such as submitting a graphic design request, the system offloads the heavy processing to a background worker queue.</p>
+
+            <p>The flow operates as follows:
+            1. The User Interface triggers a request.
+            2. The server acknowledges the receipt of the task and assigns it a unique job ID.
+            3. The task is pushed into a message broker (a queue).
+            4. Background worker processes pick up the task from the queue when resources are available.
+            5. Upon completion, the worker updates the status in the primary database, triggering a real-time notification back to the client.</p>
+
+            <p>This architecture is crucial for maintaining a responsive user experience. If our server were to synchronously process a large file upload and image resizing before responding to the user, the UI would "freeze," leading to a poor user experience. By offloading this, we provide immediate feedback while the processing happens in parallel.</p>
+
+            <p>As we continue to iterate on the Fort Developers ecosystem, these patterns remain our guiding principles. From the low-level pixel manipulation of our game engines to the high-level security of our escrow systems, our commitment is to build software that is not only functional but architecturally sound, secure, and infinitely scalable.</p>
 
             <div class="related-section">
                 <h2>Related Articles & System Guides</h2>
-                <div class="related-grid">
-                    <article class="blog-card">
-                        <div class="blog-card-media"><img src="Fort Developers.jfif" alt="Canvas Pipeline"></div>
-                        <div class="blog-card-body">
-                            <div class="blog-topic-badge">Graphics</div>
-                            <h3 class="blog-card-title">High-Performance 2D Canvas & WebGL Rendering</h3>
-                            <p class="blog-card-summary">Hardware-accelerated web dynamic graphic rendering architectures.</p>
-                            <a href="canvas-webgl-rendering-pipelines.html" class="btn-read-more">Read Full Article →</a>
-                        </div>
+                <div class="related-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                    <article class="blog-card" style="border: 1px solid #e2e8f0; padding: 20px; border-radius: 12px;">
+                        <h3 class="blog-card-title">Real-Time State Synchronization</h3>
+                        <p class="blog-card-summary">Deep dive into Firestore listeners and local state management for multi-user marketplaces.</p>
+                        <a href="#" style="color: var(--accent); text-decoration: none;">Learn More <i class="fa-solid fa-arrow-right"></i></a>
                     </article>
-                    <article class="blog-card">
-                        <div class="blog-card-media"><img src="assets/Paystack Fort Developers Image.png" alt="Security Locks"></div>
-                        <div class="blog-card-body">
-                            <div class="blog-topic-badge">Graphic Design & Technology</div>
-                            <h3 class="blog-card-title">Streamlining Designer-Client Workflows with Fort Graphics</h3>
-                            <p class="blog-card-summary">How digital asset locks, split payments, and structured design revision pipelines empower modern graphic design clients and creators.</p>
-                            <a href="fort-graphics-workflows.html" class="btn-read-more">Read Full Documentry →</a>
-                        </div>
+                    <article class="blog-card" style="border: 1px solid #e2e8f0; padding: 20px; border-radius: 12px;">
+                        <h3 class="blog-card-title">Securing API Webhooks</h3>
+                        <p class="blog-card-summary">Implementing HMAC signature validation to secure payment gateway communications.</p>
+                        <a href="#" style="color: var(--accent); text-decoration: none;">Learn More <i class="fa-solid fa-arrow-right"></i></a>
                     </article>
                 </div>
             </div>
