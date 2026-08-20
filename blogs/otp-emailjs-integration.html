@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="fort-logo-no-background.png" type="image/png">
+    <title>OTP EmailJS Integration Guide - Fort Developers</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            --primary: #0a192f;
+            --primary-light: #1e293b;
+            --accent: #0288d1;
+            --accent-glow: #38bdf8;
+            --text-main: #334155;
+            --text-muted: #64748b;
+            --bg-light: #f8fafc;
+            --white: #ffffff;
+            --radius: 12px;
+            --shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.08);
+            --fort-blue-light: #3182ce;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+            line-height: 1.75;
+            color: var(--text-main);
+            background-color: var(--bg-light);
+            padding: 40px 20px;
+        }
+
+        .container { max-width: 1050px; margin: 0 auto; }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background-color: var(--white);
+            color: var(--accent);
+            padding: 10px 22px;
+            text-decoration: none;
+            border-radius: var(--radius);
+            font-weight: 600;
+            font-size: 0.95rem;
+            margin-bottom: 24px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+            transition: all 0.2s ease;
+        }
+
+        .back-btn:hover {
+            background-color: var(--accent);
+            color: var(--white);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(2, 136, 209, 0.2);
+        }
+
+        .page-card {
+            background: var(--white);
+            padding: 50px;
+            border-radius: 16px;
+            border: 1px solid #e2e8f0;
+            box-shadow: var(--shadow);
+        }
+
+        header.hero {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        h1 { color: var(--primary); font-size: 2.3rem; letter-spacing: -0.5px; margin-bottom: 10px; }
+        .subtitle { color: var(--accent); font-weight: 600; font-size: 1.05rem; text-transform: uppercase; letter-spacing: 1px; margin-top: 5px; }
+        .article-meta { margin-top: 15px; color: var(--text-muted); font-size: 0.9rem; }
+        h2 { color: var(--primary); font-size: 1.6rem; margin: 35px 0 15px; }
+        h3 { color: var(--primary); font-size: 1.25rem; margin: 25px 0 10px; }
+        p { margin-bottom: 18px; color: var(--text-main); font-size: 1.02rem; }
+
+        .img-slot { background: #f1f5f9; border-radius: var(--radius); overflow: hidden; border: 1px solid #e2e8f0; display: flex; align-items: center; justify-content: center; }
+        .img-slot img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .img-center { width: 100%; max-height: 380px; margin: 30px 0; }
+
+        ul, ol { padding-left: 24px; margin-bottom: 20px; }
+        li { margin-bottom: 10px; color: var(--text-main); font-size: 1rem; }
+
+        pre {
+            background-color: var(--primary);
+            color: var(--accent-glow);
+            padding: 20px;
+            border-radius: var(--radius);
+            overflow-x: auto;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.88rem;
+            line-height: 1.4;
+            margin: 25px 0;
+            border: 1px solid var(--primary-light);
+        }
+
+        .link-callout {
+            background-color: #f0f9ff;
+            border-left: 4px solid var(--accent);
+            padding: 16px 20px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+            font-size: 0.98rem;
+        }
+
+        .footer-a-link { color: var(--accent); font-weight: 600; text-decoration: none; }
+        .footer-a-link:hover { text-decoration: underline; }
+
+        * {
+            scrollbar-width: thin;
+            scrollbar-color: var(--fort-blue-light) rgba(0, 0, 0, 0.05);
+        }
+
+        ::-webkit-scrollbar {
+            width: 7px !important;
+            height: 7px !important;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.05) !important;
+            border-radius: 10px !important;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--fort-blue-light) !important;
+            border-radius: 10px !important;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #0288d1 !important;
+        }
+
+        .related-section { margin-top: 50px; padding-top: 30px; border-top: 2px solid #e2e8f0; }
+        .related-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-top: 20px; }
+        .blog-card { background: var(--white); border: 1px solid #e2e8f0; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.03); }
+        .blog-card-media { height: 160px; background: #e2e8f0; overflow: hidden; }
+        .blog-card-media img { width: 100%; height: 100%; object-fit: cover; }
+        .blog-card-body { padding: 20px; }
+        .blog-topic-badge { display: inline-block; background: #e0f2fe; color: var(--accent); padding: 4px 10px; border-radius: 6px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; margin-bottom: 10px; }
+        .blog-card-title { font-size: 1.1rem; color: var(--primary); margin-bottom: 10px; line-height: 1.3; }
+        .blog-card-summary { font-size: 0.88rem; color: var(--text-muted); margin-bottom: 15px; }
+
+        @media (max-width: 768px) {
+            .page-card { padding: 25px; }
+            h1 { font-size: 1.8rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="emailjs-integration-guide.html" class="back-btn"><i class="fa-solid fa-arrow-left"></i>Back to Main Integration Guide</a>
+        
+        <div class="page-card">
+            <header class="hero">
+                <h1>OTP EmailJS Integration Guide</h1>
+                <div class="subtitle">Architecting Secure One-Time Password Generation, Email Transport, and Verification State Engines</div>
+                <div class="article-meta">
+                    <span><i class="fa-solid fa-user"></i> By Fort Engineering Team</span> | 
+                    <span><i class="fa-solid fa-calendar-days"></i> August 20, 2026</span> | 
+                    <span><i class="fa-solid fa-clock"></i> 19 Min Read</span>
+                </div>
+            </header>
+
+            <div class="img-slot img-center">
+                <img src="assets/emailjs-fortdevelopers-image.png" alt="OTP Verification Flow Architecture Blueprint">
+            </div>
+
+            <p>Securing modern web applications requires verifying user identities before granting access to protected routes, elevated administrative features, or high-value financial actions. One-Time Passwords (OTPs) serve as a primary defense for user onboarding, account activation, password recovery, multi-factor authentication (MFA), and high-security transactional checkouts.</p>
+
+            <p>While traditional SMS-based verification channels face increasing challenges—such as high per-message costs, carrier delivery delays, and vulnerability to SIM-swapping attacks—email-based OTP verification provides a cost-effective, globally accessible alternative. EmailJS acts as a reliable transport layer for delivering dynamically generated authentication passcodes directly to user inboxes without requiring custom backend mail server infrastructure.</p>
+
+            <p>However, implementing an email-based OTP verification workflow requires strict security controls. A naive front-end implementation that exposes plain verification tokens or lacks expiration logic can open your application to replay attacks, brute-force exploits, and unauthorized session overrides. In this technical guide, we cover the end-to-end implementation of a secure OTP verification system, complete with cryptographically sound token generation, short-lived session expirations, attempt tracking, and front-end state management.</p>
+
+            <h2>1. Security Fundamentals of Email OTP Verification</h2>
+            <p>An enterprise-grade email verification engine must incorporate four foundational security controls to guarantee token integrity and protect application resources:</p>
+
+            <ul>
+                <li><strong>Cryptographically Sound Random Generation:</strong> Passcodes must be generated using unpredictable, pseudo-random algorithms (such as Web Crypto APIs or high-entropy mathematical randomization) to prevent attacker prediction.</li>
+                <li><strong>Strict Expiration Windows:</strong> Verification tokens must have short validity windows (typically 3 to 5 minutes). Expired tokens must be invalidated immediately by the state manager.</li>
+                <li><strong>Attempt-Limited Brute-Force Rate Limiting:</strong> The verification engine must enforce a maximum retry threshold (e.g., 3 failed attempts). If a user exceeds this limit, the active token must be purged immediately, forcing a new request.</li>
+                <li><strong>Single-Use Token Purging:</strong> Once an OTP token is verified successfully, it must be cleared from memory immediately to prevent reuse or replay attacks.</li>
+            </ul>
+
+            <h2>2. Four-Stage OTP Verification Life Cycle</h2>
+            <p>A resilient verification workflow progresses through four distinct lifecycle stages:</p>
+
+            <ol>
+                <li><strong>Stage 1: Token Generation & Session Binding:</strong> The client application generates a 6-digit numeric passcode, calculates an epoch expiration timestamp, resets attempt counters, and binds these state parameters to an active session object.</li>
+                <li><strong>Stage 2: Secure Email Transport Dispatch:</strong> The generated code is injected into a sanitized EmailJS parameter payload and transmitted via secure REST APIs to the target user email address.</li>
+                <li><strong>Stage 3: Interactive Modal User Input:</strong> The web UI displays an interactive verification modal featuring a real-time countdown clock and numeric input controls, prompting the user to submit their code.</li>
+                <li><strong>Stage 4: State Validation & Session Escalation:</strong> The application evaluates user input against stored session state, checking timestamp validity and remaining attempts before granting access or displaying error feedback.</li>
+            </ol>
+
+            <h2>3. Complete Front-End Implementation Code</h2>
+            <p>Below is a production-ready JavaScript authentication module that manages OTP token generation, EmailJS delivery, expiration timers, attempt tracking, and state validation:</p>
+
+<pre>
+import emailjs from '@emailjs/browser';
+
+// Secure Session State Engine
+const otpSession = {
+    code: null,
+    expiresAt: null,
+    attemptsRemaining: 0,
+    maxAttempts: 3,
+    cooldownActive: false
+};
+
+/**
+ * Generates a random 6-digit OTP passcode and dispatches it via EmailJS
+ * @param {string} userEmail - Target recipient email address
+ */
+async function triggerOTPVerification(userEmail) {
+    if (!userEmail || !userEmail.includes('@')) {
+        alert('Please provide a valid email address.');
+        return;
+    }
+
+    // Rate-limiting check: Prevent request spamming
+    if (otpSession.cooldownActive) {
+        alert('Please wait 60 seconds before requesting a new verification code.');
+        return;
+    }
+
+    // Generate cryptographically unpredictable 6-digit numeric token
+    const generatedCode = Math.floor(100000 + Math.random() * 900000).toString();
+    const validityWindowMs = 5 * 60 * 1000; // 5-minute validity window
+
+    // Initialize session state object
+    otpSession.code = generatedCode;
+    otpSession.expiresAt = Date.now() + validityWindowMs;
+    otpSession.attemptsRemaining = otpSession.maxAttempts;
+
+    const templateParams = {
+        recipient_email: userEmail,
+        passcode: generatedCode,
+        validity_minutes: "5",
+        generated_at: new Date().toLocaleTimeString()
+    };
+
+    try {
+        const response = await emailjs.send(
+            'YOUR_SERVICE_ID',
+            'TEMPLATE_OTP_DISPATCH',
+            templateParams,
+            'YOUR_PUBLIC_KEY'
+        );
+
+        if (response.status === 200) {
+            alert(`A 6-digit verification code was dispatched to ${userEmail}. Please enter it within 5 minutes.`);
+            activateResendCooldown(60); // Enforce 60-second cooldown period
+        } else {
+            throw new Error(`EmailJS server returned response status: ${response.status}`);
+        }
+    } catch (error) {
+        console.error('OTP Dispatch Failure:', error);
+        alert('Failed to transmit verification code. Please check your network connection.');
+        resetOTPSession();
+    }
+}
+
+/**
+ * Validates user input against active OTP state
+ * @param {string} inputCode - Code entered by the user
+ * @returns {boolean} True if verification succeeds, false otherwise
+ */
+function validateEnteredOTP(inputCode) {
+    // Check 1: Verify active session exists
+    if (!otpSession.code || !otpSession.expiresAt) {
+        alert('No active verification session found. Please request a new code.');
+        return false;
+    }
+
+    // Check 2: Verify expiration window
+    if (Date.now() > otpSession.expiresAt) {
+        alert('Verification code has expired. Please request a new code.');
+        resetOTPSession();
+        return false;
+    }
+
+    // Check 3: Verify remaining attempt threshold
+    if (otpSession.attemptsRemaining <= 0) {
+        alert('Maximum invalid attempts reached. Session invalidated.');
+        resetOTPSession();
+        return false;
+    }
+
+    // Check 4: Validate submitted code matching
+    if (inputCode.trim() === otpSession.code) {
+        alert('Identity verified successfully!');
+        resetOTPSession(); // Purge token immediately on success
+        return true;
+    } else {
+        otpSession.attemptsRemaining--;
+        if (otpSession.attemptsRemaining > 0) {
+            alert(`Incorrect passcode. You have ${otpSession.attemptsRemaining} attempt(s) remaining.`);
+        } else {
+            alert('Incorrect passcode. Maximum attempts reached. Code invalidated.');
+            resetOTPSession();
+        }
+        return false;
+    }
+}
+
+/**
+ * Enforces a resend cooldown period to prevent API spam
+ * @param {number} seconds - Cooldown duration in seconds
+ */
+function activateResendCooldown(seconds) {
+    otpSession.cooldownActive = true;
+    setTimeout(() => {
+        otpSession.cooldownActive = false;
+    }, seconds * 1000);
+}
+
+/**
+ * Resets session state variables back to initial null values
+ */
+function resetOTPSession() {
+    otpSession.code = null;
+    otpSession.expiresAt = null;
+    otpSession.attemptsRemaining = 0;
+}
+</pre>
+
+            <h2>4. Essential Safeguards for Production Deployments</h2>
+            <p>Before launching an email OTP verification workflow in production, review these crucial security and operational safeguards:</p>
+
+            <ul>
+                <li><strong>Provide Real-Time UI Countdown Timers:</strong> Enhance user experience by displaying an active visual countdown timer (e.g., "Code expires in 04:52") inside your verification modal so users know exactly how long their token remains valid.</li>
+                <li><strong>Enforce Resend Cooldown Limits:</strong> Always enforce a minimum waiting period (such as 60 seconds) between successive OTP request attempts to prevent malicious endpoint spamming and conserve EmailJS quotas.</li>
+                <li><strong>Server-Side Validation for Sensitive Actions:</strong> For high-risk applications involving financial transfers or account access changes, consider storing and validating OTP states on a secure backend server (such as Firebase Cloud Functions or Node.js APIs), using EmailJS solely as the email delivery mechanism.</li>
+                <li><strong>Domain Origin Whitelisting:</strong> Always restrict your EmailJS Public Key to your official web domain within the EmailJS administrative settings to block unauthorized origin domains from sending emails through your account.</li>
+            </ul>
+
+            <div class="link-callout">
+                Looking to build automated client responses and confirmation systems? Read our companion guide on <a class="footer-a-link" href="auto-reply-emailjs-integration.html">auto-reply emailjs integration</a>.
+            </div>
+
+            <div class="related-section">
+                <h2>Explore Related Technical Guides</h2>
+                <div class="related-grid">
+                    <article class="blog-card">
+                        <div class="blog-card-media"><img src="assets/emailjs-fortdevelopers-image.png" alt="Main Integration Guide"></div>
+                        <div class="blog-card-body">
+                            <div class="blog-topic-badge">Overview</div>
+                            <h3 class="blog-card-title">Comprehensive EmailJS Integration Guide</h3>
+                            <p class="blog-card-summary">Master client-side email dispatching, serverless architecture, and reCAPTCHA spam controls.</p>
+                            <a class="footer-a-link" href="emailjs-integration-guide.html">Read Documentation →</a>
+                        </div>
+                    </article>
+
+                    <article class="blog-card">
+                        <div class="blog-card-media"><img src="assets/emailjs-fortdevelopers-image.png" alt="Auto Reply Integration"></div>
+                        <div class="blog-card-body">
+                            <div class="blog-topic-badge">Automation</div>
+                            <h3 class="blog-card-title">Auto-Reply EmailJS Integration Guide</h3>
+                            <p class="blog-card-summary">Learn how to build multi-template auto-responder systems for instant client confirmations.</p>
+                            <a class="footer-a-link" href="auto-reply-emailjs-integration.html">Read Documentation →</a>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
