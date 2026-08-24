@@ -1,122 +1,109 @@
-/**
- * Fort Developers - Operational Control Engine
- * Architecture Context Scope Management Layer
- */
-
-// Centralized State Management Store
-let appState = {
-    isAdminAuthenticated: false,
-    activeEditContext: {
-        sectionId: null,
-        targetFieldId: null,
-        displayElementId: null
-    },
-    // Initial dynamic catalog repository layout array mapping
-    extendedWebsites: []
-};
-
-/**
- * Fort Mart Preloader and Progress Meter Controller Hook
- */
 document.addEventListener("DOMContentLoaded", () => {
-    const preloader = document.getElementById("preloader-container");
-    const progressBar = document.getElementById("preloader-progress-bar");
-    const progressText = document.getElementById("preloader-percentage-text");
+  // --- 1. Preserved Preloader & Progress Meter Controller ---
+  const preloader = document.getElementById("preloader-container");
+  const progressBar = document.getElementById("preloader-progress-bar");
+  const progressText = document.getElementById("preloader-percentage-text");
 
-    if (!preloader || !progressBar) return;
-
+  if (preloader && progressBar) {
     let progress = 0;
-    const duration = 3000; // Total loading screen time (3 seconds)
-    const intervalTime = 30; // Update step resolution in milliseconds
+    const duration = 2500;
+    const intervalTime = 30;
     const step = (intervalTime / duration) * 100;
 
     const progressInterval = setInterval(() => {
-        progress += step;
+      progress += step;
 
-        if (progress >= 100) {
-            progress = 100;
-            clearInterval(progressInterval);
-            
-            // Turn completely solid blue in its final stage
-            progressBar.classList.add("fully-complete");
-            progressBar.style.width = "100%";
-            progressText.innerText = "Ready!";
+      if (progress >= 100) {
+        progress = 100;
+        clearInterval(progressInterval);
 
-            // Smoothly remove preloader after reaching full status
-            setTimeout(() => {
-                preloader.classList.add("fade-out");
-                
-                // Let other state machine rendering scripts safely execute after opening
-                if (typeof initApplicationState === 'function') {
-                    initApplicationState();
-                }
-            }, 400); // Tiny delay to let the user see the 100% complete state
-        } else {
-            progressBar.style.width = `${progress}%`;
-            progressText.innerText = `Loading ${Math.floor(progress)}%`;
+        progressBar.classList.add("fully-complete");
+        progressBar.style.width = "100%";
+        if (progressText) progressText.innerText = "Ready!";
 
-            // Change to complete blue within the last 1-2 seconds of loading 
-            if (progress >= 66) { 
-                progressBar.classList.add("fully-complete");
-            }
+        setTimeout(() => {
+          preloader.classList.add("fade-out");
+        }, 300);
+      } else {
+        progressBar.style.width = `${progress}%`;
+        if (progressText) progressText.innerText = `Loading ${Math.floor(progress)}%`;
+
+        if (progress >= 66) {
+          progressBar.classList.add("fully-complete");
         }
+      }
     }, intervalTime);
-});
+  }
 
-/**
- * Advert Display Controller Loop
- * Tracks visits via localStorage, shuffles to show the video every 3rd visit,
- * and automatically switches back to the dynamic image advert after the video plays twice.
- */
-document.addEventListener("DOMContentLoaded", () => {
-    const adImageWrapper = document.getElementById("ad-image-wrapper");
-    const adVideo = document.getElementById("ad-video");
+  // --- 2. Mobile Menu Navigation Navigation Controller ---
+  const hamburger = document.querySelector(".hamburger");
+  const navLinks = document.querySelector(".nav-links");
 
-    if (!adImageWrapper || !adVideo) return;
+  if (hamburger && navLinks) {
+    hamburger.addEventListener("click", () => {
+      navLinks.classList.toggle("active");
+    });
 
-    // Function to safely show the responsive image and hide the video
-    function switchToImageAd() {
-        adVideo.pause();
-        adVideo.classList.add("hidden");
-        adImageWrapper.classList.remove("hidden");
-    }
+    document.querySelectorAll(".nav-links a").forEach((link) => {
+      link.addEventListener("click", () => {
+        navLinks.classList.remove("active");
+      });
+    });
+  }
 
-    // Retrieve or initialize total website visit count in localStorage
+  // --- 3. Intersection Observer (Scroll Reveal Animations) ---
+  const sections = document.querySelectorAll(".scroll-section");
+  const observerOptions = {
+    root: null,
+    threshold: 0.12,
+  };
+
+  const sectionObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("visible");
+        observer.unobserve(entry.target);
+      }
+    });
+  }, observerOptions);
+
+  sections.forEach((section) => {
+    sectionObserver.observe(section);
+  });
+
+  // --- 4. Advert Display Logic (Visit Counter & Video Rotation) ---
+  const adImageWrapper = document.getElementById("ad-image-wrapper");
+  const adVideo = document.getElementById("ad-video");
+
+  if (adImageWrapper && adVideo) {
+    const switchToImageAd = () => {
+      adVideo.pause();
+      adVideo.classList.add("hidden");
+      adImageWrapper.classList.remove("hidden");
+    };
+
     let visitCount = parseInt(localStorage.getItem("fort_website_visit_count") || "0", 10);
     visitCount += 1;
     localStorage.setItem("fort_website_visit_count", visitCount.toString());
 
-    // Check if it is every 3rd opening (3, 6, 9, 12, etc.)
     if (visitCount % 3 === 0) {
-        // Remove 'loop' so the 'ended' event triggers after each playback
-        adVideo.removeAttribute("loop");
+      adVideo.removeAttribute("loop");
+      adImageWrapper.classList.add("hidden");
+      adVideo.classList.remove("hidden");
 
-        // Show video advert and hide responsive image advert
-        adImageWrapper.classList.add("hidden");
-        adVideo.classList.remove("hidden");
+      let playCounter = 0;
+      adVideo.addEventListener("ended", () => {
+        playCounter += 1;
+        if (playCounter < 2) {
+          adVideo.play();
+        } else {
+          switchToImageAd();
+        }
+      });
 
-        let playCounter = 0;
-
-        // Listen for when the video reaches the end
-        adVideo.addEventListener("ended", () => {
-            playCounter += 1;
-
-            if (playCounter < 2) {
-                // Replay the video for its second loop
-                adVideo.play();
-            } else {
-                // After playing twice, switch to the image advert
-                switchToImageAd();
-            }
-        });
-
-        // Start video playback
-        adVideo.play().catch(() => {
-            // Fallback to image if browser blocks autoplay
-            switchToImageAd();
-        });
+      adVideo.play().catch(() => switchToImageAd());
     } else {
-        // Show responsive image advert and hide video advert
-        switchToImageAd();
+      switchToImageAd();
     }
+  }
 });
