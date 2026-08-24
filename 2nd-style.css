@@ -1,0 +1,378 @@
+/* Core Styling Tokens Configuration Matrix - Blue, Green, White Theme */
+:root {
+    /* Primary Color Palette */
+    --fort-blue-primary: #0052cc;
+    --fort-blue-dark: #0a192f;
+    --fort-blue-light: #0080ff;
+    
+    /* Integrated Emerald/Mint Green Accents */
+    --fort-green-primary: #00b894;
+    --fort-green-dark: #00875a;
+    --fort-green-mint: #e6f8f3;
+    
+    /* Smooth Multi-Color Gradients */
+    --fort-gradient-hero: linear-gradient(135deg, #0052cc 0%, #00b894 100%);
+    --fort-gradient-soft: linear-gradient(180deg, #f0fdf4 0%, #e6f0fa 100%);
+    --fort-gradient-accent: linear-gradient(90deg, #0080ff 0%, #00b894 100%);
+    --fort-gradient-glass: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.6) 100%);
+    
+    /* Neutrals & Surfaces */
+    --fort-white-pure: #ffffff;
+    --fort-white-snow: #f8fafc;
+    --fort-gray-bg: #f1f5f9;
+    --fort-gray-border: #cbd5e1;
+    --fort-gray-slate: #64748b;
+    
+    /* Utilities */
+    --fort-danger-red: #e53e3e;
+    --fort-danger-bg: #fff5f5;
+    --fort-shadow-card: 0 10px 25px -5px rgba(0, 184, 148, 0.08), 0 8px 10px -6px rgba(0, 82, 204, 0.05);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+}
+
+body {
+    background-color: var(--fort-gray-bg);
+    color: var(--fort-blue-dark);
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* ==========================================================================
+   SCROLL BLEND-IN ANIMATION SYSTEM
+   ========================================================================== */
+.scroll-blend {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: opacity, transform;
+}
+
+.scroll-blend.blend-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Structural UI Containers & Cards */
+.rounded-rect {
+    border-radius: 12px;
+    border: 1px solid var(--fort-gray-border);
+    box-shadow: var(--fort-shadow-card);
+    background: var(--fort-white-pure);
+}
+
+.scrollable-container {
+    overflow-y: auto;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+}
+
+.hidden-node, .hidden {
+    display: none !important;
+}
+
+.text-center { text-align: center; }
+.bold-text { font-weight: 700; }
+.margin-top-xs { margin-top: 4px; }
+.margin-top-sm { margin-top: 10px; }
+.margin-top-md { margin-top: 20px; }
+.margin-top-lg { margin-top: 30px; }
+.text-muted { color: var(--fort-gray-slate); font-size: 0.92rem; line-height: 1.5; }
+
+/* Gradient Action Buttons */
+.btn-blue, .btn-gray, .btn-danger, .btn-sm-pencil {
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.btn-blue { 
+    background: var(--fort-gradient-accent); 
+    color: var(--fort-white-pure);
+    box-shadow: 0 4px 14px rgba(0, 184, 148, 0.3);
+}
+
+.btn-blue:hover { 
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 82, 204, 0.4);
+    opacity: 0.95;
+}
+
+.btn-gray { background-color: #e2e8f0; color: #4a5568; }
+.btn-gray:hover { background-color: #cbd5e0; }
+
+.btn-sm-pencil { 
+    padding: 6px 12px; 
+    font-size: 0.8rem; 
+    background-color: var(--fort-green-mint); 
+    border: 1px solid var(--fort-green-primary); 
+    color: var(--fort-green-dark);
+    margin-left: 8px;
+}
+.btn-group { display: flex; gap: 12px; margin-top: 14px; }
+
+/* App Shell Structure */
+.app-container { display: flex; flex-direction: column; min-height: 100vh; width: 100vw; }
+
+/* Dynamic Section Blending & Wave Dividers */
+.view-page {
+    padding: 80px 20px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.bg-white-pure { background-color: var(--fort-white-pure); }
+
+.bg-blend-section { 
+    background: var(--fort-gradient-soft);
+    position: relative;
+}
+
+/* SVG Wave Blend Overlays */
+.section-divider-wave {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+}
+
+.section-divider-wave.top { top: 0; }
+.section-divider-wave.bottom { bottom: 0; }
+
+.section-divider-wave svg {
+    position: relative;
+    display: block;
+    width: calc(100% + 1.3px);
+    height: 50px;
+}
+
+.section-content-wrapper {
+    width: 100%;
+    max-width: 1000px;
+    z-index: 2;
+}
+
+/* Main Site Header */
+.main-site-header {
+    background: var(--fort-gradient-glass);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(0, 184, 148, 0.15);
+    padding: 16px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.brand-name {
+    font-size: 1.35rem;
+    font-weight: 800;
+    background: var(--fort-gradient-hero);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.nav-link {
+    color: var(--fort-blue-dark);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    padding: 8px 16px;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+
+.nav-link:hover {
+    color: var(--fort-green-dark);
+    background-color: var(--fort-green-mint);
+}
+
+/* Hero Intro Block */
+.intro-header-block {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    max-width: 1000px;
+    width: 100%;
+}
+
+.intro-logo-frame {
+    width: 140px;
+    height: 140px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: var(--fort-gradient-hero);
+    padding: 6px;
+    box-shadow: 0 10px 20px rgba(0, 184, 148, 0.2);
+}
+
+.intro-logo-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    background: white;
+    border-radius: 50%;
+    padding: 8px;
+}
+
+.intro-text-pane h1 {
+    font-size: 2.8rem;
+    background: var(--fort-gradient-hero);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.redirect-link {
+    color: var(--fort-green-dark);
+    text-decoration: none;
+    font-weight: 700;
+    border-bottom: 2px solid var(--fort-green-primary);
+}
+
+/* Table of Contents Cards */
+.drawer-links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.drawer-links li { 
+    background: var(--fort-white-pure); 
+    border: 1px solid var(--fort-gray-border); 
+    border-radius: 10px;
+    transition: transform 0.2s, border-color 0.2s;
+}
+.drawer-links li:hover {
+    transform: translateX(6px);
+    border-color: var(--fort-green-primary);
+}
+.drawer-links li a { 
+    display: block; 
+    padding: 16px; 
+    font-weight: 600; 
+    font-size: 0.95rem; 
+    color: var(--fort-blue-dark); 
+    text-decoration: none;
+}
+
+/* Product Master Grid */
+.products-master-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+}
+
+.product-item-card-container {
+    background: var(--fort-white-pure);
+    border-radius: 14px;
+    border: 1px solid var(--fort-gray-border);
+    overflow: hidden;
+    height: 250px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.product-item-card-container:hover { 
+    transform: translateY(-6px); 
+    box-shadow: 0 15px 30px rgba(0, 184, 148, 0.15);
+    border-color: var(--fort-green-primary);
+}
+
+.product-card-image-box { 
+    width: 100%; 
+    height: 170px; 
+    background: var(--fort-gradient-soft); 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    padding: 20px; 
+}
+
+.product-card-image-box img { width: 100%; height: 100%; object-fit: contain; }
+.product-card-details-block { padding: 14px; display: flex; align-items: center; justify-content: center; }
+.product-card-title { font-size: 1rem; font-weight: 700; color: var(--fort-blue-dark); }
+
+/* Suite Contact Cards */
+.suite-extension-row-card { 
+    display: flex; 
+    align-items: center; 
+    justify-content: space-between; 
+    gap: 15px; 
+    padding: 18px; 
+    border-radius: 10px;
+    border: 1px solid var(--fort-gray-border); 
+    background-color: var(--fort-white-pure); 
+    transition: border-color 0.2s;
+}
+
+.suite-extension-row-card:hover { border-color: var(--fort-green-primary); }
+
+/* Dynamic Preloader Styling */
+#preloader-container {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: var(--fort-white-pure);
+    z-index: 99999;
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+#preloader-container.fade-out { opacity: 0; visibility: hidden; pointer-events: none; }
+
+.progress-meter-container {
+    width: 280px; height: 18px;
+    background-color: #e2e8f0;
+    border-radius: 50px; padding: 3px;
+    position: relative; overflow: hidden;
+}
+
+.progress-meter-bar {
+    height: 100%; width: 0%;
+    background: var(--fort-gradient-accent);
+    border-radius: 50px;
+    transition: width 0.1s linear, background-color 0.4s ease;
+}
+
+.progress-meter-bar.fully-complete {
+    background: var(--fort-green-primary) !important;
+}
+
+.preloader-text {
+    margin-top: 12px;
+    font-size: 0.9rem;
+    color: var(--fort-gray-slate);
+    font-weight: 600;
+}
+
+/* Custom Scrollbar Elements */
+.scrollable-container::-webkit-scrollbar { width: 8px; }
+.scrollable-container::-webkit-scrollbar-track { background: var(--fort-gray-bg); }
+.scrollable-container::-webkit-scrollbar-thumb { 
+    background: linear-gradient(180deg, var(--fort-blue-light), var(--fort-green-primary)); 
+    border-radius: 10px; 
+}
+
+/* Responsive Overrides */
+@media (max-width: 1024px) {
+    .products-master-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 640px) {
+    .intro-header-block { flex-direction: column; text-align: center; gap: 20px; }
+    .products-master-grid { grid-template-columns: repeat(1, 1fr); }
+    .main-site-header { flex-direction: column; gap: 12px; }
+}

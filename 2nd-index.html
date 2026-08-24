@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="fort-logo-no-background.png" type="image/png">
+    <title>Fort Developers</title>
+    <!-- Updated CSS path -->
+    <link rel="stylesheet" href="2nd-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Updated JS path -->
+    <script src="2nd-script.js" defer></script>
+</head>
+<body>
+
+    <div id="preloader-container">
+        <img src="fort-logo.png" alt="Fort Logo" class="preloader-logo">
+        <div class="progress-meter-container">
+            <div id="preloader-progress-bar" class="progress-meter-bar"></div>
+        </div>
+        <div id="preloader-percentage-text" class="preloader-text">Loading 0%</div>
+    </div>
+    
+    <div class="app-container scrollable-container">
+
+        <header class="main-site-header">
+            <div class="header-brand">
+                <a href="#intro-section" class="brand-logo-link" style="display:flex; align-items:center; gap:12px; text-decoration:none;">
+                    <img src="fort-logo-no-background.png" alt="Fort Logo" class="header-logo" style="width:32px; height:32px;">
+                    <span class="brand-name">Fort Developers</span>
+                </a>
+            </div>
+            <nav class="header-nav">
+                <a href="about-us.html" class="nav-link">About Us</a>
+                <a href="contact-us.html" class="nav-link">Contact Us</a>
+                <a href="blogs.html" class="nav-link">Blogs & Documentary</a>            
+            </nav>
+        </header>        
+        
+        <!-- Intro Hero Section -->
+        <section id="intro-section" class="view-page bg-white-pure scroll-blend">
+            <div class="intro-header-block">
+                <div class="intro-logo-frame">
+                    <img src="fort-logo.png" alt="Fort Logo" id="main-fort-logo">
+                </div>
+                <div class="intro-text-pane">
+                    <h1 class="bold-text">Fort Developers</h1>
+                    <p class="margin-top-sm">
+                        Made to give you the best on the web. We wish you best of luck as you explore and enjoy our services. 
+                        We have different platforms which are featured in the <a href="#more-from-fort" class="redirect-link">More from Fort</a> section.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Table of Contents Section with Wave Blend -->
+        <section id="table-of-contents" class="view-page bg-blend-section scroll-blend">
+            <div class="section-divider-wave top">
+                <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
+                    <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" fill="#ffffff"></path>
+                </svg>
+            </div>
+
+            <div class="section-content-wrapper">
+                <h2 style="color: var(--fort-blue-dark); font-size: 2rem;">Table of Contents</h2>
+                <ul class="drawer-links margin-top-md" id="toc-list">
+                    <li><a href="#intro-section"><i class="fa-solid fa-house" style="color:var(--fort-green-primary); margin-right:8px;"></i> Intro Section</a></li>
+                    <li><a href="#table-of-contents"><i class="fa-solid fa-list-ol" style="color:var(--fort-green-primary); margin-right:8px;"></i> Table of Contents</a></li>
+                    <li><a href="#customer-care"><i class="fa-solid fa-headset" style="color:var(--fort-green-primary); margin-right:8px;"></i> Contact Portals & Social Media Pages</a></li>
+                    <li><a href="#more-from-fort"><i class="fa-solid fa-cubes" style="color:var(--fort-green-primary); margin-right:8px;"></i> More from Fort</a></li>
+                    <li><a href="#fort-mart-section"><i class="fa-solid fa-store" style="color:var(--fort-green-primary); margin-right:8px;"></i> Fort Mart – Marketplace and Chat</a></li>
+                    <li><a href="#fort-createawebsite-section"><i class="fa-solid fa-laptop-code" style="color:var(--fort-green-primary); margin-right:8px;"></i> Fort – Website Builder</a></li>
+                    <li><a href="#fort-graphicsmarketplace-section"><i class="fa-solid fa-palette" style="color:var(--fort-green-primary); margin-right:8px;"></i> Fort Graphics Marketplace</a></li>
+                </ul>
+            </div>
+
+            <div class="section-divider-wave bottom">
+                <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
+                    <path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V120H0Z" fill="#ffffff"></path>
+                </svg>
+            </div>
+        </section>
+
+        <!-- Customer Care Portals -->
+        <section id="customer-care" class="view-page bg-white-pure scroll-blend">
+            <div class="section-content-wrapper">
+                <div class="header-inline-edit-row">
+                    <h2 style="font-size: 2rem; color: var(--fort-blue-dark);">Contact Portals & Social Media</h2>
+                </div>
+                <p class="margin-top-xs text-muted">Reach out directly via our official communication channels below.</p>
+                
+                <div class="suite-extensions-vertical-stack margin-top-md" style="display:flex; flex-direction:column; gap:16px;">
+                    <div class="suite-extension-row-card scroll-blend">
+                        <div class="card-info" style="display:flex; align-items:center; gap:15px;">
+                            <span class="card-icon" style="color: #25D366; font-size:2rem;"><i class="fa-brands fa-whatsapp"></i></span>
+                            <div>
+                                <strong>WhatsApp Corporate Node:</strong><br>
+                                <a href="https://wa.me/2348028241162" target="_blank" style="color:var(--fort-blue-primary); text-decoration:none; font-weight:700;">+2348028241162</a>
+                            </div>
+                        </div>
+                        <a href="https://wa.me/2348028241162" target="_blank" class="card-btn-link">
+                            <button class="btn-blue"><i class="fa-brands fa-whatsapp"></i> Chat on WhatsApp</button>
+                        </a>
+                    </div>
+
+                    <div class="suite-extension-row-card scroll-blend">
+                        <div class="card-info" style="display:flex; align-items:center; gap:15px;">
+                            <span class="card-icon" style="color: #EA4335; font-size:2rem;"><i class="fa-solid fa-envelope"></i></span>
+                            <div>
+                                <strong>E-Mail Support Gateway:</strong><br>
+                                <a href="mailto:fortdevelopers492@gmail.com" style="color:var(--fort-blue-primary); text-decoration:none; font-weight:700;">fortdevelopers492@gmail.com</a>
+                            </div>
+                        </div>
+                        <a href="mailto:fortdevelopers492@gmail.com" class="card-btn-link">
+                            <button class="btn-blue"><i class="fa-solid fa-envelope"></i> Email Us</button>
+                        </a>
+                    </div>
+
+                    <div class="suite-extension-row-card scroll-blend">
+                        <div class="card-info" style="display:flex; align-items:center; gap:15px;">
+                            <span class="card-icon" style="color: #1877F2; font-size:2rem;"><i class="fa-brands fa-facebook"></i></span>
+                            <div>
+                                <strong>Facebook Page:</strong><br>
+                                <a href="https://facebook.com/fortdevelopers492" target="_blank" style="color:var(--fort-blue-primary); text-decoration:none; font-weight:700;">Fort Developers</a>
+                            </div>
+                        </div>
+                        <a href="https://facebook.com/fortdevelopers492" target="_blank" class="card-btn-link">
+                            <button class="btn-blue"><i class="fa-brands fa-facebook"></i> Facebook Page</button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- More From Fort Grid Section -->
+        <section id="more-from-fort" class="view-page bg-blend-section scroll-blend">
+            <div class="section-content-wrapper">
+                <h2 style="font-size: 2rem; color: var(--fort-blue-dark);">More from Fort</h2>
+                
+                <div class="products-master-grid margin-top-md" id="more-from-fort-grid">
+                    <div class="product-item-card-container scroll-blend" onclick="window.location.hash='#fort-mart-section'">
+                        <div class="product-card-image-box">
+                            <img src="fort-mart-logo.png" alt="Fort Mart">
+                        </div>
+                        <div class="product-card-details-block text-center">
+                            <span class="product-card-title">Fort Mart</span>
+                        </div>
+                    </div>
+
+                    <div class="product-item-card-container scroll-blend" onclick="window.location.hash='#fort-createawebsite-section'">
+                        <div class="product-card-image-box">
+                            <img src="fort-website-builder-logo.png" alt="Fort Create A Website">
+                        </div>
+                        <div class="product-card-details-block text-center">
+                            <span class="product-card-title">Website Builder</span>
+                        </div>
+                    </div>
+
+                    <div class="product-item-card-container scroll-blend" onclick="window.location.hash='#fort-graphicsmarketplace-section'">
+                        <div class="product-card-image-box">
+                            <img src="fort-graphics-logo.png" alt="Fort Graphics Marketplace">
+                        </div>
+                        <div class="product-card-details-block text-center">
+                            <span class="product-card-title">Graphics Marketplace</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="text-center scroll-blend" style="padding: 24px; background: var(--fort-white-pure); border-top: 1px solid var(--fort-gray-border);">
+            <p style="color: var(--fort-gray-slate);">By using Fort Website, you accept and agree to our <a class="redirect-link" href="fort-dev-terms-and-conditions.html">Terms and Conditions</a> and <a class="redirect-link" href="fort-dev-privacy-policy.html">Privacy Policy</a></p>
+        </footer>        
+
+    </div>
+</body>
+</html>
