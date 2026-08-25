@@ -72,38 +72,63 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // --- 4. Advert Display Logic (Visit Counter & Video Rotation) ---
-  const adImageWrapper = document.getElementById("ad-image-wrapper");
-  const adVideo = document.getElementById("ad-video");
+  const sourceDesktop = document.getElementById("ad-source-desktop") 
+  const sourceMobile = document.getElementById("ad-source-mobile")
+  const imageFallback = document.getElementById("ad-image-fallback")
 
-  if (adImageWrapper && adVideo) {
-    const switchToImageAd = () => {
-      adVideo.pause();
-      adVideo.classList.add("hidden");
-      adImageWrapper.classList.remove("hidden");
-    };
+  if (sourceDesktop && sourceMobile && sourceDesktop) {
+    // Retrieve last display state (defaults to 'flyer1' if missing)
+    const lastFlyer = localStorage.getItem("fort_last_rendered_flyer") || "flyer2"
 
-    let visitCount = parseInt(localStorage.getItem("fort_website_visit_count") || "0", 10);
-    visitCount += 1;
-    localStorage.setItem("fort_website_visit_count", visitCount.toString());
+    // Determine the next flyer vairant to show
+    const currentFlyer = lastFlyer === "flyer1" ? "flyer2" : "flyer1"
 
-    if (visitCount % 3 === 0) {
-      adVideo.removeAttribute("loop");
-      adImageWrapper.classList.add("hidden");
-      adVideo.classList.remove("hidden");
+    if (currentFlyer === "flyer1") {
+      sourceDesktop.srcset = "flyer-fort-landscape.png"
+      sourceMobile.srcset = "flyer-fort-potrait.png"
+      imageFallback.src = "flyer-fort-landscape.png"
+    } else {
+      sourceDesktop.srcset = "flyer-fort-2_ewnab_landscape.png"
+      sourceMobile.srcset = "flyer-fort-2_ewnab_potrait.png"
+      imageFallback.src = "flyer-fort-2_ewnab_landscape.png"      
+    }
 
-      let playCounter = 0;
-      adVideo.addEventListener("ended", () => {
-        playCounter += 1;
-        if (playCounter < 2) {
-          adVideo.play();
+    // Overwrite history with the current active layout
+    localStorage.setItem("fort_last_rendered_flyer", currentFlyer);
+  }
+
+  // -- Article Search Bar -- //
+  const searchInput = document.getElementById("article-search");
+  const blogCards = document.querySelectorAll(".blog-card");
+  const noResultsMessage = document.getElementById("no-results-message");
+
+  if (searchInput && blogCards.length > 0) {
+    searchInput.addEventListener("input", (e) => {
+      const searchTerm = e.target.value.toLowerCase().trim();
+      let visibleCardsCount = 0;
+
+      blogCards.forEach(card => {
+        const title = card.querySelector(".blog-card-title").textContent.toLowerCase();
+        const summary = card.querySelector(".blog-card-summary").textContent.toLowerCase();
+        const badge = card.querySelector(".blog-topic-badge").textContent.toLowerCase();
+
+        // Show item if search string exists in details
+        if (title.includes(searchTerm) || badge.includes(searchTerm) || summary.includes(searchTerm)) {
+          card.style.display = "flex";
+          visibleCardsCount++; 
         } else {
-          switchToImageAd();
+          card.style.display = "none";
         }
       });
 
-      adVideo.play().catch(() => switchToImageAd());
-    } else {
-      switchToImageAd();
-    }
+      // Toggle the Fallback Message
+      if (visibleCardsCount === 0) {
+        noResultsMessage.style.display ="block"
+      } else {
+        noResultsMessage.style.display ="none"
+      }
+
+    })
   }
+  
 });

@@ -32,9 +32,8 @@
             <ul class="nav-links">
                 <li><a href="index.html">Home</a></li>
                 <li><a href="#blog-feed-section">Articles</a></li>
-                <li><a href="#customer-care">Contact</a></li>
+                <li><a href="contact-us.html">Contact</a></li>
                 <li><a href="about-us.html">About Us</a></li>
-                <li><a href="index.html">Home</a></li>
             </ul>
             <div class="hamburger">
                 <span></span>
@@ -48,7 +47,7 @@
         <!-- Hero Intro Section -->
         <section id="intro-section" class="scroll-section hero">
             <div class="hero-content">
-                <img src="fort-logo.png" alt="Fort Logo" class="hero-logo">
+                <img src="fort-logo-border-cropped.png" alt="Fort Logo" class="hero-logo">
                 <h1>Fort Developers Blog</h1>
                 <p>Insights, development updates, tutorials, and engineering articles written directly by the Fort Developers team.</p>
                 <a href="#blog-feed-section" class="btn">Explore Articles</a>
@@ -75,7 +74,19 @@
                 <h2>Latest Articles & Insights</h2>
                 <p>Read stories, guides, and engineering logs written directly by Fort Developers.</p>
 
+                <div class="search-container-wrapper">
+                    <div class="search-box">
+                        <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                        <input type="text" id="article-search" placeholder="Search articles...">
+                    </div>
+                </div>
+
                 <div class="blog-grid margin-top-md">
+
+                    <div id="no-results-message" style="display: none; text-align: center; width: 100%; padding: 40px var(--space-sm); color: #718096">
+                        <i class="fa-solid fa-magnifying-glass" style="font-size: 2rem; margin-bottom: 10px; display: block; color: #a0aec0;"></i>
+                        <p>No articles match your search criteria. Try a different keyword!</p>
+                    </div>
                     
                     <article class="card blog-card">
                         <div class="blog-card-media">
