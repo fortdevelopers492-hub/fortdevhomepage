@@ -132,3 +132,22 @@ document.addEventListener("DOMContentLoaded", () => {
   }
   
 });
+
+document.querySelectorAll('.wa-direct-link').forEach(link => {
+  link.addEventListener('click', function(e) {
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+
+    if (isMobile) {
+      e.preventDefault();
+
+      // Extract phone and message directly from href
+      const url = new URL(this.href);
+      const phone = url.pathname.replace('/', '');
+      const text = url.searchParams.get('text') || '';
+
+      // Direct URI scheme (Bypasses web landing page on iOS & Android)
+      window.location.href = `whatsapp://send?phone=${phone}&text=${text}`;
+    }
+    // Desktop devices follow default href target="_blank" to wa.me
+  });
+});
