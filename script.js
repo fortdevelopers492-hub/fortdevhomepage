@@ -151,3 +151,44 @@ document.querySelectorAll('.wa-direct-link').forEach(link => {
     // Desktop devices follow default href target="_blank" to wa.me
   });
 });
+
+document.addEventListener("DOMContentLoaded", () => {
+  // --- Theme Mode Logic ---
+  const lightBtn = document.getElementById("light-mode-btn");
+  const darkBtn = document.getElementById("dark-mode-btn");
+
+  // Function to apply chosen theme
+  const setTheme = (theme) => {
+    if (theme === "dark") {
+      document.documentElement.setAttribute("data-theme", "dark");
+      localStorage.setItem("fort_theme", "dark");
+      if (darkBtn) darkBtn.classList.add("active");
+      if (lightBtn) lightBtn.classList.remove("active");
+    } else {
+      document.documentElement.removeAttribute("data-theme");
+      localStorage.setItem("fort_theme", "light");
+      if (lightBtn) lightBtn.classList.add("active");
+      if (darkBtn) darkBtn.classList.remove("active");
+    }
+  };
+
+  // Retrieve saved preference or check OS preference
+  const savedTheme = localStorage.getItem("fort_theme");
+  const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+
+  if (savedTheme) {
+    setTheme(savedTheme);
+  } else if (prefersDark) {
+    setTheme("dark");
+  } else {
+    setTheme("light");
+  }
+
+  // Event Listeners for Theme Switcher Buttons
+  if (lightBtn) {
+    lightBtn.addEventListener("click", () => setTheme("light"));
+  }
+  if (darkBtn) {
+    darkBtn.addEventListener("click", () => setTheme("dark"));
+  }
+});
