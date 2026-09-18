@@ -502,3 +502,37 @@ footer a:hover {
     margin: 0 auto;
   }
 }
+
+/* Theme Toggle Button */
+/* --- Theme Toggle Button Styling --- */
+.theme-toggle-btn {
+  background: transparent;
+  border: 1px solid var(--border-color);
+  color: var(--text-light);
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 6px 14px;
+  border-radius: 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: var(--transition);
+}
+
+.theme-toggle-btn:hover {
+  color: #63b3ed;
+  border-color: #63b3ed;
+}
+
+/* Centralize Toggle Link in Mobile Menu */
+@media (max-width: 768px) {
+  .nav-links li.theme-toggle-li {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 12px 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+  }
+}

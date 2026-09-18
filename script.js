@@ -152,43 +152,43 @@ document.querySelectorAll('.wa-direct-link').forEach(link => {
   });
 });
 
-document.addEventListener("DOMContentLoaded", () => {
-  // --- Theme Mode Logic ---
-  const lightBtn = document.getElementById("light-mode-btn");
-  const darkBtn = document.getElementById("dark-mode-btn");
+// --- Theme Switcher Logic with Dynamic Text & Icon ---
+const themeToggleBtn = document.getElementById("theme-toggle-btn");
+const themeToggleIcon = document.getElementById("theme-toggle-icon");
+const themeToggleText = document.getElementById("theme-toggle-text");
 
-  // Function to apply chosen theme
-  const setTheme = (theme) => {
-    if (theme === "dark") {
-      document.documentElement.setAttribute("data-theme", "dark");
-      localStorage.setItem("fort_theme", "dark");
-      if (darkBtn) darkBtn.classList.add("active");
-      if (lightBtn) lightBtn.classList.remove("active");
-    } else {
+function updateToggleUI(isDark) {
+  if (isDark) {
+    if (themeToggleIcon) {
+      themeToggleIcon.classList.remove("fa-moon");
+      themeToggleIcon.classList.add("fa-sun");
+    }
+    if (themeToggleText) themeToggleText.textContent = "Light";
+  } else {
+    if (themeToggleIcon) {
+      themeToggleIcon.classList.remove("fa-sun");
+      themeToggleIcon.classList.add("fa-moon");
+    }
+    if (themeToggleText) themeToggleText.textContent = "Dark";
+  }
+}
+
+// Initial state setup on DOM load
+const isCurrentlyDark = document.documentElement.getAttribute("data-theme") === "dark";
+updateToggleUI(isCurrentlyDark);
+
+if (themeToggleBtn) {
+  themeToggleBtn.addEventListener("click", () => {
+    const isDark = document.documentElement.getAttribute("data-theme") === "dark";
+    
+    if (isDark) {
       document.documentElement.removeAttribute("data-theme");
       localStorage.setItem("fort_theme", "light");
-      if (lightBtn) lightBtn.classList.add("active");
-      if (darkBtn) darkBtn.classList.remove("active");
+      updateToggleUI(false);
+    } else {
+      document.documentElement.setAttribute("data-theme", "dark");
+      localStorage.setItem("fort_theme", "dark");
+      updateToggleUI(true);
     }
-  };
-
-  // Retrieve saved preference or check OS preference
-  const savedTheme = localStorage.getItem("fort_theme");
-  const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-
-  if (savedTheme) {
-    setTheme(savedTheme);
-  } else if (prefersDark) {
-    setTheme("dark");
-  } else {
-    setTheme("light");
-  }
-
-  // Event Listeners for Theme Switcher Buttons
-  if (lightBtn) {
-    lightBtn.addEventListener("click", () => setTheme("light"));
-  }
-  if (darkBtn) {
-    darkBtn.addEventListener("click", () => setTheme("dark"));
-  }
-});
+  });
+}

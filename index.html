@@ -8,6 +8,19 @@
     <link rel="stylesheet" href="fort-dev-styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <script src="script.js" defer></script>
+    <!-- Inline Early Theme Initialization -->
+    <!-- Fixed Light Default Theme Initialization Script -->
+    <script>
+        (function() {
+            const savedTheme = localStorage.getItem("fort_theme");
+            // Only set dark mode if explicitly saved as "dark" by user interaction
+            if (savedTheme === "dark") {
+                document.documentElement.setAttribute("data-theme", "dark");
+            } else {
+                document.documentElement.removeAttribute("data-theme");
+            }
+        })();
+    </script>
 </head>
 <body>
 
@@ -35,6 +48,12 @@
                 <li><a href="#custom-website">Custom Site</a></li>
                 <li><a href="about-us.html">About Us</a></li>
                 <li><a href="https://blogs.fortdevelopers.com.ng">Blogs</a></li>
+                <li class="theme-toggle-li">
+                    <button id="theme-toggle-btn" class="theme-toggle-btn" aria-label="Toggle Theme">
+                        <i class="fa-solid fa-moon" id="theme-toggle-icon"></i>
+                        <span id="theme-toggle-text">Dark</span>
+                    </button>
+                </li>
             </ul>
             <div class="hamburger">
                 <span></span>
@@ -183,16 +202,6 @@
                 <a href="fort-dev-terms-and-conditions.html">Terms & Conditions</a> and 
                 <a href="fort-dev-privacy-policy.html">Privacy Policy</a>.
             </p>
-            
-            <!-- Mode Switcher Buttons -->
-            <div class="theme-switch-container">
-                <button id="light-mode-btn" class="theme-btn">
-                    <i class="fa-solid fa-sun"></i> Light
-                </button>
-                <button id="dark-mode-btn" class="theme-btn">
-                    <i class="fa-solid fa-moon"></i> Dark
-                </button>
-            </div>
 
             <p class="margin-top-xs">&copy; Fort Developers. All Rights Reserved.</p>
         </div>
