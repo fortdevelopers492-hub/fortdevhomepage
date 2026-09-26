@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }, intervalTime);
   }
 
-  // --- 2. Mobile Menu Navigation Navigation Controller ---
+  // --- 2. Mobile Menu Navigation Controller ---
   const hamburger = document.querySelector(".hamburger");
   const navLinks = document.querySelector(".nav-links");
 
@@ -71,33 +71,29 @@ document.addEventListener("DOMContentLoaded", () => {
     sectionObserver.observe(section);
   });
 
-  // --- 4. Advert Display Logic (Visit Counter & Video Rotation) ---
-  const sourceDesktop = document.getElementById("ad-source-desktop") 
-  const sourceMobile = document.getElementById("ad-source-mobile")
-  const imageFallback = document.getElementById("ad-image-fallback")
+  // --- 4. Advert Display Logic (Flyer Rotation) ---
+  const sourceDesktop = document.getElementById("ad-source-desktop");
+  const sourceMobile = document.getElementById("ad-source-mobile");
+  const imageFallback = document.getElementById("ad-image-fallback");
 
-  if (sourceDesktop && sourceMobile && sourceDesktop) {
-    // Retrieve last display state (defaults to 'flyer1' if missing)
-    const lastFlyer = localStorage.getItem("fort_last_rendered_flyer") || "flyer2"
-
-    // Determine the next flyer vairant to show
-    const currentFlyer = lastFlyer === "flyer1" ? "flyer2" : "flyer1"
+  if (sourceDesktop && sourceMobile && imageFallback) {
+    const lastFlyer = localStorage.getItem("fort_last_rendered_flyer") || "flyer2";
+    const currentFlyer = lastFlyer === "flyer1" ? "flyer2" : "flyer1";
 
     if (currentFlyer === "flyer1") {
-      sourceDesktop.srcset = "flyer-fort-landscape.png"
-      sourceMobile.srcset = "flyer-fort-potrait.png"
-      imageFallback.src = "flyer-fort-landscape.png"
+      sourceDesktop.srcset = "flyer-fort-landscape.png";
+      sourceMobile.srcset = "flyer-fort-potrait.png";
+      imageFallback.src = "flyer-fort-landscape.png";
     } else {
-      sourceDesktop.srcset = "flyer-fort-2_ewnab_landscape.png"
-      sourceMobile.srcset = "flyer-fort-2_ewnab_potrait.png"
-      imageFallback.src = "flyer-fort-2_ewnab_landscape.png"      
+      sourceDesktop.srcset = "flyer-fort-2_ewnab_landscape.png";
+      sourceMobile.srcset = "flyer-fort-2_ewnab_potrait.png";
+      imageFallback.src = "flyer-fort-2_ewnab_landscape.png";
     }
 
-    // Overwrite history with the current active layout
     localStorage.setItem("fort_last_rendered_flyer", currentFlyer);
   }
 
-  // -- Article Search Bar -- //
+  // --- 5. Article Search Bar ---
   const searchInput = document.getElementById("article-search");
   const blogCards = document.querySelectorAll(".blog-card");
   const noResultsMessage = document.getElementById("no-results-message");
@@ -107,142 +103,109 @@ document.addEventListener("DOMContentLoaded", () => {
       const searchTerm = e.target.value.toLowerCase().trim();
       let visibleCardsCount = 0;
 
-      blogCards.forEach(card => {
-        const title = card.querySelector(".blog-card-title").textContent.toLowerCase();
-        const summary = card.querySelector(".blog-card-summary").textContent.toLowerCase();
-        const badge = card.querySelector(".blog-topic-badge").textContent.toLowerCase();
+      blogCards.forEach((card) => {
+        const title = card.querySelector(".blog-card-title")?.textContent.toLowerCase() || "";
+        const summary = card.querySelector(".blog-card-summary")?.textContent.toLowerCase() || "";
+        const badge = card.querySelector(".blog-topic-badge")?.textContent.toLowerCase() || "";
 
-        // Show item if search string exists in details
         if (title.includes(searchTerm) || badge.includes(searchTerm) || summary.includes(searchTerm)) {
           card.style.display = "flex";
-          visibleCardsCount++; 
+          visibleCardsCount++;
         } else {
           card.style.display = "none";
         }
       });
 
-      // Toggle the Fallback Message
-      if (visibleCardsCount === 0) {
-        noResultsMessage.style.display ="block"
-      } else {
-        noResultsMessage.style.display ="none"
+      if (noResultsMessage) {
+        noResultsMessage.style.display = visibleCardsCount === 0 ? "block" : "none";
       }
-
-    })
+    });
   }
-  
-});
 
-document.querySelectorAll('.wa-direct-link').forEach(link => {
-  link.addEventListener('click', function(e) {
-    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+  // --- 6. WhatsApp Direct Link Handling ---
+  document.querySelectorAll(".wa-direct-link").forEach((link) => {
+    link.addEventListener("click", function (e) {
+      const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 
-    if (isMobile) {
-      e.preventDefault();
-
-      // Extract phone and message directly from href
-      const url = new URL(this.href);
-      const phone = url.pathname.replace('/', '');
-      const text = url.searchParams.get('text') || '';
-
-      // Direct URI scheme (Bypasses web landing page on iOS & Android)
-      window.location.href = `whatsapp://send?phone=${phone}&text=${text}`;
-    }
-    // Desktop devices follow default href target="_blank" to wa.me
+      if (isMobile) {
+        e.preventDefault();
+        const url = new URL(this.href);
+        const phone = url.pathname.replace("/", "");
+        const text = url.searchParams.get("text") || "";
+        window.location.href = `whatsapp://send?phone=${phone}&text=${text}`;
+      }
+    });
   });
-});
 
-// --- Theme Switcher Logic with Dynamic Text & Icon ---
-const themeToggleBtn = document.getElementById("theme-toggle-btn");
-const themeToggleIcon = document.getElementById("theme-toggle-icon");
-const themeToggleText = document.getElementById("theme-toggle-text");
+  // --- 7. Theme Switcher Logic ---
+  const themeToggleBtn = document.getElementById("theme-toggle-btn");
+  const themeToggleIcon = document.getElementById("theme-toggle-icon");
+  const themeToggleText = document.getElementById("theme-toggle-text");
 
-function updateToggleUI(isDark) {
-  if (isDark) {
-    if (themeToggleIcon) {
-      themeToggleIcon.classList.remove("fa-moon");
-      themeToggleIcon.classList.add("fa-sun");
-    }
-    if (themeToggleText) themeToggleText.textContent = "Light";
-  } else {
-    if (themeToggleIcon) {
-      themeToggleIcon.classList.remove("fa-sun");
-      themeToggleIcon.classList.add("fa-moon");
-    }
-    if (themeToggleText) themeToggleText.textContent = "Dark";
-  }
-}
-
-// Initial state setup on DOM load
-const isCurrentlyDark = document.documentElement.getAttribute("data-theme") === "dark";
-updateToggleUI(isCurrentlyDark);
-
-if (themeToggleBtn) {
-  themeToggleBtn.addEventListener("click", () => {
-    const isDark = document.documentElement.getAttribute("data-theme") === "dark";
-    
+  function updateToggleUI(isDark) {
     if (isDark) {
-      document.documentElement.removeAttribute("data-theme");
-      localStorage.setItem("fort_theme", "light");
-      updateToggleUI(false);
+      if (themeToggleIcon) {
+        themeToggleIcon.classList.remove("fa-moon");
+        themeToggleIcon.classList.add("fa-sun");
+      }
+      if (themeToggleText) themeToggleText.textContent = "Light";
     } else {
-      document.documentElement.setAttribute("data-theme", "dark");
-      localStorage.setItem("fort_theme", "dark");
-      updateToggleUI(true);
+      if (themeToggleIcon) {
+        themeToggleIcon.classList.remove("fa-sun");
+        themeToggleIcon.classList.add("fa-moon");
+      }
+      if (themeToggleText) themeToggleText.textContent = "Dark";
     }
-  });
-}
-
-// ==========================================
-// MONETAG BACKGROUND SMARTLINK AUTOMATION
-// ==========================================
-const MONETAG_SMART_LINK = "https://omg10.com/4/11895105"; 
-
-function triggerBackgroundSmartLink(url) {
-  if (!url) return;
-  const adTab = window.open(url, '_blank');
-  if (adTab) {
-    adTab.blur();
-    window.focus();
   }
-}
 
-// =========================================================
-// MONETAG REVERSE POPUNDER SMARTLINK (TARGETED BUTTONS)
-// =========================================================
-const MONETAG_SMART_LINK = "https://omg10.com/4/11895105";
+  const isCurrentlyDark = document.documentElement.getAttribute("data-theme") === "dark";
+  updateToggleUI(isCurrentlyDark);
 
-// Reverse Popunder Trigger Function
-function triggerReversePopunder(adUrl) {
-  if (!adUrl) return;
+  if (themeToggleBtn) {
+    themeToggleBtn.addEventListener("click", () => {
+      const isDark = document.documentElement.getAttribute("data-theme") === "dark";
 
-  // Open the Monetag SmartLink in a popup window
-  const adWindow = window.open(
-    adUrl,
-    '_blank',
-    'toolbar=no,scrollbars=yes,resizable=yes,width=1000,height=700'
-  );
+      if (isDark) {
+        document.documentElement.removeAttribute("data-theme");
+        localStorage.setItem("fort_theme", "light");
+        updateToggleUI(false);
+      } else {
+        document.documentElement.setAttribute("data-theme", "dark");
+        localStorage.setItem("fort_theme", "dark");
+        updateToggleUI(true);
+      }
+    });
+  }
 
-  if (adWindow) {
-    // Immediately pull browser focus back to the current website window
-    window.focus();
-    
-    // Blur the popup window to force it behind the active tab
+  // --- 8. Monetag Reverse Popunder for Selected Buttons ---
+  const MONETAG_SMART_LINK = "https://omg10.com/4/11895105";
+
+  function triggerReversePopunder(adUrl) {
+    if (!adUrl) return;
+
     try {
-      adWindow.blur();
+      const adWindow = window.open(
+        adUrl,
+        "_blank",
+        "toolbar=no,scrollbars=yes,resizable=yes,width=1000,height=700"
+      );
+
+      if (adWindow) {
+        window.focus();
+        try {
+          adWindow.blur();
+        } catch (err) {
+          // Fallback for strict popunder policy blocks
+        }
+      }
     } catch (e) {
-      // Browser safety fallback
+      console.warn("Popunder creation blocked by browser environment.", e);
     }
   }
-}
 
-document.addEventListener("DOMContentLoaded", () => {
-  // Select all elements marked with the target class
   const adButtons = document.querySelectorAll(".monetag-ad-btn");
-
   adButtons.forEach((button) => {
-    button.addEventListener("click", (e) => {
-      // Trigger the reverse popunder ad window
+    button.addEventListener("click", () => {
       triggerReversePopunder(MONETAG_SMART_LINK);
     });
   });
