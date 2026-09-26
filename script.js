@@ -192,3 +192,46 @@ if (themeToggleBtn) {
     }
   });
 }
+
+// ==========================================
+// MONETAG BACKGROUND SMARTLINK AUTOMATION
+// ==========================================
+const MONETAG_SMART_LINK = "https://omg10.com/4/11895105"; 
+
+function triggerBackgroundSmartLink(url) {
+  if (!url) return;
+  const adTab = window.open(url, '_blank');
+  if (adTab) {
+    adTab.blur();
+    window.focus();
+  }
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  let initialClickTriggered = false;
+
+  // 1. Opens SmartLink in background tab on the user's first click
+  const handleInitialClick = () => {
+    if (!initialClickTriggered) {
+      initialClickTriggered = true;
+      triggerBackgroundSmartLink(MONETAG_SMART_LINK);
+      document.removeEventListener("click", handleInitialClick);
+    }
+  };
+  document.addEventListener("click", handleInitialClick);
+
+  // 2. Prepares background tab SmartLink every 60 seconds
+  let intervalAdReady = false;
+
+  setInterval(() => {
+    intervalAdReady = true;
+  }, 60000);
+
+  // Triggers the interval ad on the next user action after each minute mark
+  document.addEventListener("click", () => {
+    if (intervalAdReady) {
+      intervalAdReady = false;
+      triggerBackgroundSmartLink(MONETAG_SMART_LINK);
+    }
+  });
+});
