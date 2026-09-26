@@ -207,31 +207,43 @@ function triggerBackgroundSmartLink(url) {
   }
 }
 
+// =========================================================
+// MONETAG REVERSE POPUNDER SMARTLINK (TARGETED BUTTONS)
+// =========================================================
+const MONETAG_SMART_LINK = "https://omg10.com/4/11895105";
+
+// Reverse Popunder Trigger Function
+function triggerReversePopunder(adUrl) {
+  if (!adUrl) return;
+
+  // Open the Monetag SmartLink in a popup window
+  const adWindow = window.open(
+    adUrl,
+    '_blank',
+    'toolbar=no,scrollbars=yes,resizable=yes,width=1000,height=700'
+  );
+
+  if (adWindow) {
+    // Immediately pull browser focus back to the current website window
+    window.focus();
+    
+    // Blur the popup window to force it behind the active tab
+    try {
+      adWindow.blur();
+    } catch (e) {
+      // Browser safety fallback
+    }
+  }
+}
+
 document.addEventListener("DOMContentLoaded", () => {
-  let initialClickTriggered = false;
+  // Select all elements marked with the target class
+  const adButtons = document.querySelectorAll(".monetag-ad-btn");
 
-  // 1. Opens SmartLink in background tab on the user's first click
-  const handleInitialClick = () => {
-    if (!initialClickTriggered) {
-      initialClickTriggered = true;
-      triggerBackgroundSmartLink(MONETAG_SMART_LINK);
-      document.removeEventListener("click", handleInitialClick);
-    }
-  };
-  document.addEventListener("click", handleInitialClick);
-
-  // 2. Prepares background tab SmartLink every 60 seconds
-  let intervalAdReady = false;
-
-  setInterval(() => {
-    intervalAdReady = true;
-  }, 60000);
-
-  // Triggers the interval ad on the next user action after each minute mark
-  document.addEventListener("click", () => {
-    if (intervalAdReady) {
-      intervalAdReady = false;
-      triggerBackgroundSmartLink(MONETAG_SMART_LINK);
-    }
+  adButtons.forEach((button) => {
+    button.addEventListener("click", (e) => {
+      // Trigger the reverse popunder ad window
+      triggerReversePopunder(MONETAG_SMART_LINK);
+    });
   });
 });
