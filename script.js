@@ -210,3 +210,38 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 });
+
+// --- Giveaway Countdown Timer Logic ---
+  const timerDays = document.getElementById("timer-days");
+  const timerHours = document.getElementById("timer-hours");
+  const timerMinutes = document.getElementById("timer-minutes");
+  const timerSeconds = document.getElementById("timer-seconds");
+
+  if (timerDays && timerHours && timerMinutes && timerSeconds) {
+    // Set deadline 7 days from now
+    const giveawayTargetDate = new Date();
+    giveawayTargetDate.setDate(giveawayTargetDate.getDate() + 7);
+
+    function updateTimer() {
+      const currentTime = new Date().getTime();
+      const difference = giveawayTargetDate.getTime() - currentTime;
+
+      if (difference <= 0) {
+        document.getElementById("giveaway-timer").innerHTML = "<p><strong>Giveaway Ended!</strong></p>";
+        return;
+      }
+
+      const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+      timerDays.textContent = String(days).padStart(2, "0");
+      timerHours.textContent = String(hours).padStart(2, "0");
+      timerMinutes.textContent = String(minutes).padStart(2, "0");
+      timerSeconds.textContent = String(seconds).padStart(2, "0");
+    }
+
+    updateTimer();
+    setInterval(updateTimer, 1000);
+  }
