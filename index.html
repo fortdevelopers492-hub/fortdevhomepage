@@ -8,7 +8,25 @@
     <link rel="stylesheet" href="fort-dev-styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <script src="script.js" defer></script>
+    <!-- Monetag Script -->
     <script src="https://quge5.com/88/tag.min.js" data-zone="286973" async data-cfasync="false"></script>
+
+    <!-- Interceptor Script to Block Non-Target Clicks -->
+    <script>
+    (function() {
+        // Intercept all click events at the capture phase (before Monetag receives them)
+        window.addEventListener('click', function(event) {
+        // Check if the clicked element or any of its parents has the .monetag-ad-btn class
+        const targetAdElement = event.target.closest('.monetag-ad-btn');
+
+        // If the clicked element is NOT a designated ad button/container
+        if (!targetAdElement) {
+            // Stop Monetag's click event listeners from executing
+            event.stopImmediatePropagation();
+        }
+        }, true); // The `true` parameter enables the capture phase
+    })();
+    </script>
     <!-- Inline Early Theme Initialization -->
     <!-- Fixed Light Default Theme Initialization Script -->
     <script>
