@@ -11,20 +11,18 @@
     <!-- Monetag Script -->
     <script src="https://quge5.com/88/tag.min.js" data-zone="286973" async data-cfasync="false"></script>
 
-    <!-- Interceptor Script to Block Non-Target Clicks -->
+    <!-- Interceptor Script: Block ads for elements marked with .not-ad-btn -->
     <script>
     (function() {
-        // Intercept all click events at the capture phase (before Monetag receives them)
         window.addEventListener('click', function(event) {
-        // Check if the clicked element or any of its parents has the .monetag-ad-btn class
-        const targetAdElement = event.target.closest('.monetag-ad-btn');
+        // Check if the click happened inside an element marked as 'not-ad-btn'
+        const isBlockedElement = event.target.closest('.not-ad-btn');
 
-        // If the clicked element is NOT a designated ad button/container
-        if (!targetAdElement) {
-            // Stop Monetag's click event listeners from executing
+        if (isBlockedElement) {
+            // Kills Monetag's global click listener before it fires
             event.stopImmediatePropagation();
         }
-        }, true); // The `true` parameter enables the capture phase
+        }, true); // 'true' runs this during the capture phase before Monetag catches it
     })();
     </script>
     <!-- Inline Early Theme Initialization -->
@@ -84,7 +82,7 @@
 
     <main>
         <!-- Hero Intro Section -->
-        <section id="hero" class="scroll-section hero">
+        <section id="hero" class="scroll-section hero not-ad-btn">
             <div class="hero-content">
                 <img src="fort-logo-border-cropped.png" alt="Fort Logo" class="hero-logo">
                 <h1>Fort Developers</h1>
@@ -94,7 +92,7 @@
         </section>
 
         <!-- Table of Contents Section -->
-        <section id="table-of-contents" class="scroll-section bg-light">
+        <section id="table-of-contents" class="scroll-section bg-light not-ad-btn">
             <div class="container">
                 <h2>Table of Contents</h2>
                 <ul class="drawer-links margin-top-md">
@@ -110,7 +108,7 @@
         </section>
 
         <!-- Contact Portals / Customer Care Section -->
-        <section id="customer-care" class="scroll-section">
+        <section id="customer-care" class="scroll-section not-ad-btn">
             <div class="container">
                 <h2>Contact Portals & Support</h2>
                 <p>Reach out for support, custom website creation, reviews, or queries across our channels.</p>
@@ -144,7 +142,7 @@
         </section>
 
         <!-- Custom Website Advert Section -->
-        <section id="custom-website" class="scroll-section bg-light">
+        <section id="custom-website" class="scroll-section bg-light not-ad-btn">
             <div class="container">
                 <h2>Custom Website Creation</h2>
                 <p>Need a tailored business website or application? Contact us today to get started.</p>
