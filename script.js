@@ -71,29 +71,7 @@ document.addEventListener("DOMContentLoaded", () => {
     sectionObserver.observe(section);
   });
 
-  // --- 4. Advert Display Logic (Flyer Rotation) ---
-  const sourceDesktop = document.getElementById("ad-source-desktop");
-  const sourceMobile = document.getElementById("ad-source-mobile");
-  const imageFallback = document.getElementById("ad-image-fallback");
-
-  if (sourceDesktop && sourceMobile && imageFallback) {
-    const lastFlyer = localStorage.getItem("fort_last_rendered_flyer") || "flyer2";
-    const currentFlyer = lastFlyer === "flyer1" ? "flyer2" : "flyer1";
-
-    if (currentFlyer === "flyer1") {
-      sourceDesktop.srcset = "flyer-fort-landscape.png";
-      sourceMobile.srcset = "flyer-fort-potrait.png";
-      imageFallback.src = "flyer-fort-landscape.png";
-    } else {
-      sourceDesktop.srcset = "flyer-fort-2_ewnab_landscape.png";
-      sourceMobile.srcset = "flyer-fort-2_ewnab_potrait.png";
-      imageFallback.src = "flyer-fort-2_ewnab_landscape.png";
-    }
-
-    localStorage.setItem("fort_last_rendered_flyer", currentFlyer);
-  }
-
-  // --- 5. Article Search Bar ---
+  // --- 4. Article Search Bar ---
   const searchInput = document.getElementById("article-search");
   const blogCards = document.querySelectorAll(".blog-card");
   const noResultsMessage = document.getElementById("no-results-message");
@@ -122,7 +100,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // --- 6. WhatsApp Direct Link Handling ---
+  // --- 5. WhatsApp Direct Link Handling ---
   document.querySelectorAll(".wa-direct-link").forEach((link) => {
     link.addEventListener("click", function (e) {
       const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
@@ -137,7 +115,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // --- 7. Theme Switcher Logic ---
+  // --- 6. Theme Switcher Logic ---
   const themeToggleBtn = document.getElementById("theme-toggle-btn");
   const themeToggleIcon = document.getElementById("theme-toggle-icon");
   const themeToggleText = document.getElementById("theme-toggle-text");
@@ -176,72 +154,39 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   }
-
-  // --- 8. Monetag Reverse Popunder for Selected Buttons ---
-  const MONETAG_SMART_LINK = "https://omg10.com/4/11895105";
-
-  function triggerReversePopunder(adUrl) {
-    if (!adUrl) return;
-
-    try {
-      const adWindow = window.open(
-        adUrl,
-        "_blank",
-        "toolbar=no,scrollbars=yes,resizable=yes,width=1000,height=700"
-      );
-
-      if (adWindow) {
-        window.focus();
-        try {
-          adWindow.blur();
-        } catch (err) {
-          // Fallback for strict popunder policy blocks
-        }
-      }
-    } catch (e) {
-      console.warn("Popunder creation blocked by browser environment.", e);
-    }
-  }
-
-  const adButtons = document.querySelectorAll(".monetag-ad-btn");
-  adButtons.forEach((button) => {
-    button.addEventListener("click", () => {
-      triggerReversePopunder(MONETAG_SMART_LINK);
-    });
-  });
 });
 
 // --- Giveaway Countdown Timer Logic ---
-  const timerDays = document.getElementById("timer-days");
-  const timerHours = document.getElementById("timer-hours");
-  const timerMinutes = document.getElementById("timer-minutes");
-  const timerSeconds = document.getElementById("timer-seconds");
+const timerDays = document.getElementById("timer-days");
+const timerHours = document.getElementById("timer-hours");
+const timerMinutes = document.getElementById("timer-minutes");
+const timerSeconds = document.getElementById("timer-seconds");
 
-  if (timerDays && timerHours && timerMinutes && timerSeconds) {
-    // Set deadline 7 days from now
-    const giveawayTargetDate = new Date();
-    giveawayTargetDate.setDate(giveawayTargetDate.getDate() + 7);
+if (timerDays && timerHours && timerMinutes && timerSeconds) {
+  // Set deadline 7 days from now
+  const giveawayTargetDate = new Date();
+  giveawayTargetDate.setDate(giveawayTargetDate.getDate() + 7);
 
-    function updateTimer() {
-      const currentTime = new Date().getTime();
-      const difference = giveawayTargetDate.getTime() - currentTime;
+  function updateTimer() {
+    const currentTime = new Date().getTime();
+    const difference = giveawayTargetDate.getTime() - currentTime;
 
-      if (difference <= 0) {
-        document.getElementById("giveaway-timer").innerHTML = "<p><strong>Giveaway Ended!</strong></p>";
-        return;
-      }
-
-      const days = Math.floor(difference / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((difference % (1000 * 60)) / 1000);
-
-      timerDays.textContent = String(days).padStart(2, "0");
-      timerHours.textContent = String(hours).padStart(2, "0");
-      timerMinutes.textContent = String(minutes).padStart(2, "0");
-      timerSeconds.textContent = String(seconds).padStart(2, "0");
+    if (difference <= 0) {
+      document.getElementById("giveaway-timer").innerHTML = "<p><strong>Giveaway Ended!</strong></p>";
+      return;
     }
 
-    updateTimer();
-    setInterval(updateTimer, 1000);
+    const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+    timerDays.textContent = String(days).padStart(2, "0");
+    timerHours.textContent = String(hours).padStart(2, "0");
+    timerMinutes.textContent = String(minutes).padStart(2, "0");
+    timerSeconds.textContent = String(seconds).padStart(2, "0");
   }
+
+  updateTimer();
+  setInterval(updateTimer, 1000);
+}

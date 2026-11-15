@@ -8,29 +8,10 @@
     <link rel="stylesheet" href="fort-dev-styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <script src="script.js" defer></script>
-    <!-- Monetag Script -->
-    <script src="https://quge5.com/88/tag.min.js" data-zone="286973" async data-cfasync="false"></script>
-
-    <!-- Interceptor Script: Block ads for elements marked with .not-ad-btn -->
-    <script>
-    (function() {
-        window.addEventListener('click', function(event) {
-        // Check if the click happened inside an element marked as 'not-ad-btn'
-        const isBlockedElement = event.target.closest('.not-ad-btn');
-
-        if (isBlockedElement) {
-            // Kills Monetag's global click listener before it fires
-            event.stopImmediatePropagation();
-        }
-        }, true); // 'true' runs this during the capture phase before Monetag catches it
-    })();
-    </script>
     <!-- Inline Early Theme Initialization -->
-    <!-- Fixed Light Default Theme Initialization Script -->
     <script>
         (function() {
             const savedTheme = localStorage.getItem("fort_theme");
-            // Only set dark mode if explicitly saved as "dark" by user interaction
             if (savedTheme === "dark") {
                 document.documentElement.setAttribute("data-theme", "dark");
             } else {
@@ -82,7 +63,7 @@
 
     <main>
         <!-- Hero Intro Section -->
-        <section id="hero" class="scroll-section hero not-ad-btn">
+        <section id="hero" class="scroll-section hero">
             <div class="hero-content">
                 <img src="fort-logo-border-cropped.png" alt="Fort Logo" class="hero-logo">
                 <h1>Fort Developers</h1>
@@ -92,7 +73,7 @@
         </section>
 
         <!-- Table of Contents Section -->
-        <section id="table-of-contents" class="scroll-section bg-light not-ad-btn">
+        <section id="table-of-contents" class="scroll-section bg-light">
             <div class="container">
                 <h2>Table of Contents</h2>
                 <ul class="drawer-links margin-top-md">
@@ -108,7 +89,7 @@
         </section>
 
         <!-- Contact Portals / Customer Care Section -->
-        <section id="customer-care" class="scroll-section not-ad-btn">
+        <section id="customer-care" class="scroll-section">
             <div class="container">
                 <h2>Contact Portals & Support</h2>
                 <p>Reach out for support, custom website creation, reviews, or queries across our channels.</p>
@@ -141,18 +122,18 @@
             </div>
         </section>
 
-        <!-- Custom Website Advert Section -->
-        <section id="custom-website" class="scroll-section bg-light not-ad-btn">
+        <!-- Custom Website Section -->
+        <section id="custom-website" class="scroll-section bg-light">
             <div class="container">
                 <h2>Custom Website Creation</h2>
                 <p>Need a tailored business website or application? Contact us today to get started.</p>
                 
-                <!-- Advert Media Player Block -->
+                <!-- Static Media Player Block -->
                 <div class="ad-media-container margin-top-md">
-                    <picture id="ad-image-wrapper">
-                        <source id="ad-source-desktop" media="(min-width: 769px)" srcset="flyer-fort-landscape.png">
-                        <source id="ad-source-mobile" media="(max-width: 768px)" srcset="flyer-fort-potrait.png">                      
-                        <img id="ad-image-fallback" src="flyer-fort-landscape.png" alt="Custom Website Advert" class="ad-media-content">
+                    <picture>
+                        <source media="(min-width: 769px)" srcset="flyer-fort-landscape.png">
+                        <source media="(max-width: 768px)" srcset="flyer-fort-potrait.png">                      
+                        <img src="flyer-fort-landscape.png" alt="Custom Website Flyer" class="ad-media-content">
                     </picture>
                 </div>
 
@@ -169,7 +150,7 @@
                 <p>Discover products built and maintained under the Fort ecosystem.</p>
 
                 <div class="grid margin-top-md">
-                    <div class="card ecosystem-card monetag-ad-btn" onclick="document.querySelector('#fort-mart-section').scrollIntoView()">
+                    <div class="card ecosystem-card" onclick="document.querySelector('#fort-mart-section').scrollIntoView()">
                         <div class="card-img-box">
                             <img src="fort-mart-logo.png" alt="Fort Mart Logo">
                         </div>
@@ -177,7 +158,7 @@
                         <p>E-Commerce Marketplace & Live Chat</p>
                     </div>
 
-                    <div class="card ecosystem-card monetag-ad-btn" onclick="document.querySelector('#fort-graphicsmarketplace-section').scrollIntoView()">
+                    <div class="card ecosystem-card" onclick="document.querySelector('#fort-graphicsmarketplace-section').scrollIntoView()">
                         <div class="card-img-box">
                             <img src="fort-graphics-logo.png" alt="Fort Graphics Logo">
                         </div>
@@ -188,30 +169,6 @@
             </div>
         </section>
 
-        <!-- Sponsored Giveaway Advert Section -->
-        <section id="giveaway-ad" class="scroll-section bg-light">
-            <div class="container">
-                <!-- Disclosure Tag required for sponsored content -->
-                <div class="sponsored-header">
-                    <span class="sponsored-badge"><i class="fa-solid fa-rectangle-ad"></i> Sponsored Giveaway</span>
-                </div>
-
-                <!-- Banner Image Container -->
-                <div class="giveaway-banner-wrapper">
-                    <a href="https://omg10.com/4/11895507" target="_blank" class="giveaway-banner-link monetag-ad-btn" rel="noopener sponsored">
-                        <picture>
-                            <!-- Landscape image for desktop -->
-                            <source media="(min-width: 769px)" srcset="giveaway-banner-desktop.png">
-                            <!-- Portrait image for mobile -->
-                            <source media="(max-width: 768px)" srcset="giveaway-banner-desktop.png">
-                            <!-- Default fallback image -->
-                            <img src="giveaway-banner-desktop.png" alt="Participate in Sponsored Giveaway" class="giveaway-banner-img">
-                        </picture>
-                    </a>
-                </div>
-            </div>
-        </section>        
-
         <!-- Product Spotlight Sections -->
         <section id="fort-mart-section" class="scroll-section bg-light">
             <div class="container spotlight-box">
@@ -219,7 +176,7 @@
                 <div class="spotlight-details">
                     <h2>Fort Mart – Marketplace & Chat</h2>
                     <p>An e-marketplace offering direct buyer and seller interaction. Features integrated live chat communication channels for smooth transactions.</p>
-                    <button class="btn margin-top-sm monetag-ad-btn" onclick="window.open('https://fort-site.com.ng/fort%20mart%20index.html', '_blank')">Visit Platform</button>
+                    <button class="btn margin-top-sm" onclick="window.open('https://fort-site.com.ng/fort%20mart%20index.html', '_blank')">Visit Platform</button>
                 </div>
             </div>
         </section>
@@ -230,7 +187,7 @@
                 <div class="spotlight-details">
                     <h2>Fort Graphics Marketplace</h2>
                     <p>Connect with expert designers by submitting graphic design project requests, managing draft approvals, and acquiring verified design assets.</p>
-                    <button class="btn margin-top-sm monetag-ad-btn" onclick="window.open('https://graphics.fort-site.com.ng', '_blank')">Visit Marketplace</button>
+                    <button class="btn margin-top-sm" onclick="window.open('https://graphics.fort-site.com.ng', '_blank')">Visit Marketplace</button>
                 </div>
             </div>
         </section>
@@ -238,7 +195,7 @@
 
     <!-- Footer -->
     <footer>
-        <div class="container monetag-ad-btn">
+        <div class="container">
             <p>By using Fort Website, you accept and agree to our 
                 <a href="fort-dev-terms-and-conditions.html">Terms & Conditions</a> and 
                 <a href="fort-dev-privacy-policy.html">Privacy Policy</a>.
