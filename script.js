@@ -1,38 +1,11 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // --- 1. Preserved Preloader & Progress Meter Controller ---
+  // --- 1. Logo Orbit Preloader (Disappears after exactly 3s) ---
   const preloader = document.getElementById("preloader-container");
-  const progressBar = document.getElementById("preloader-progress-bar");
-  const progressText = document.getElementById("preloader-percentage-text");
 
-  if (preloader && progressBar) {
-    let progress = 0;
-    const duration = 2500;
-    const intervalTime = 30;
-    const step = (intervalTime / duration) * 100;
-
-    const progressInterval = setInterval(() => {
-      progress += step;
-
-      if (progress >= 100) {
-        progress = 100;
-        clearInterval(progressInterval);
-
-        progressBar.classList.add("fully-complete");
-        progressBar.style.width = "100%";
-        if (progressText) progressText.innerText = "Ready!";
-
-        setTimeout(() => {
-          preloader.classList.add("fade-out");
-        }, 300);
-      } else {
-        progressBar.style.width = `${progress}%`;
-        if (progressText) progressText.innerText = `Loading ${Math.floor(progress)}%`;
-
-        if (progress >= 66) {
-          progressBar.classList.add("fully-complete");
-        }
-      }
-    }, intervalTime);
+  if (preloader) {
+    setTimeout(() => {
+      preloader.classList.add("fade-out");
+    }, 2000);
   }
 
   // --- 2. Mobile Menu Navigation Controller ---
@@ -156,6 +129,98 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
+// --- 7. Animated Code Showcase (Slower typing + Replay on scroll back) ---
+  const codeOutput = document.getElementById("animated-code-output");
+  const replayBtn = document.getElementById("replay-code-btn");
+  const codeTabs = document.querySelectorAll(".code-tab");
+
+  if (codeOutput) {
+    const snippets = {
+      web: `// Fort Developers — Custom Web Build
+const brand = {
+  name: "Your Business",
+  speed: "Fast & Mobile-First",
+  features: ["Custom UI", "SEO Ready", "WhatsApp Lead Funnel"]
+};
+launchPlatform(brand);`,
+      store: `// Fort Mart — Marketplace & Checkout
+async function addToCart(item) {
+  cart.push(item);
+  updateBadge(cart.length);
+  openLiveSellerChat(item.sellerId);
+}`,
+      chat: `// Real-Time Buyer & Seller Messaging
+channel.on("message", (msg) => {
+  renderBubble(msg.sender, msg.text);
+  playNotificationTone();
+});`
+    };
+
+    let activeKey = "web";
+    let typingTimer = null;
+    let currentRunId = 0;
+
+    function stopTyping() {
+      currentRunId++;
+      clearTimeout(typingTimer);
+    }
+
+    function runCodeTypewriter(key) {
+      stopTyping();
+      const runId = currentRunId;
+      const text = snippets[key] || snippets.web;
+      codeOutput.textContent = "";
+      let i = 0;
+
+      function step() {
+        if (runId !== currentRunId) return;
+
+        const nextChar = text[i] || "";
+        codeOutput.textContent = text.slice(0, i);
+        i++;
+
+        if (i <= text.length) {
+          // Slower pace (~50ms per char) + brief pause at newlines
+          const delay = nextChar === "\n" ? 160 : 50;
+          typingTimer = setTimeout(step, delay);
+        }
+      }
+
+      step();
+    }
+
+    const codeObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            runCodeTypewriter(activeKey);
+          } else {
+            stopTyping();
+            codeOutput.textContent = "";
+          }
+        });
+      },
+      { threshold: 0.25 }
+    );
+
+    codeObserver.observe(codeOutput);
+
+    codeTabs.forEach((tab) => {
+      tab.addEventListener("click", () => {
+        codeTabs.forEach((t) => t.classList.remove("active"));
+        tab.classList.add("active");
+        activeKey = tab.dataset.sn.ippet;
+        runCodeTypewriter(activeKey);
+      });
+    });
+
+    if (replayBtn) {
+      replayBtn.addEventListener("click", () => runCodeTypewriter(activeKey));
+    }
+  }
+  
+// <-- Make sure this closing bracket of DOMContentLoaded is AFTER the code above!
+
 // --- Giveaway Countdown Timer Logic ---
 const timerDays = document.getElementById("timer-days");
 const timerHours = document.getElementById("timer-hours");
@@ -163,7 +228,6 @@ const timerMinutes = document.getElementById("timer-minutes");
 const timerSeconds = document.getElementById("timer-seconds");
 
 if (timerDays && timerHours && timerMinutes && timerSeconds) {
-  // Set deadline 7 days from now
   const giveawayTargetDate = new Date();
   giveawayTargetDate.setDate(giveawayTargetDate.getDate() + 7);
 

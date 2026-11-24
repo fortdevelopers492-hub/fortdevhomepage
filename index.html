@@ -24,11 +24,10 @@
 
     <!-- Preserved Preloader Loading Animation Overlay -->
     <div id="preloader-container">
-        <img src="fort-logo-border-cropped.png" alt="Fort Logo" class="preloader-logo">
-        <div class="progress-meter-container">
-            <div id="preloader-progress-bar" class="progress-meter-bar"></div>
-        </div>
-        <div id="preloader-percentage-text" class="preloader-text">Loading 0%</div>
+    <div class="logo-orbit-wrap">
+        <div class="logo-orbit-ring"></div>
+        <img src="fort-logo-no-background.png" alt="Fort Logo" class="logo-orbit-center">
+    </div>
     </div>
 
     <!-- Navigation Header -->
@@ -166,7 +165,22 @@
             <div class="container">
                 <h2>Custom Website Creation</h2>
                 <p>Need a tailored business website or application? Contact us today to get started.</p>
-                
+
+                <!-- Animated Code Showcase -->
+                <div class="code-showcase margin-top-md">
+                <div class="code-toolbar">
+                    <div class="code-tabs">
+                    <button type="button" class="code-tab active" data-snippet="web">Custom Site</button>
+                    <button type="button" class="code-tab" data-snippet="store">Fort Mart UI</button>
+                    <button type="button" class="code-tab" data-snippet="chat">Live Chat</button>
+                    </div>
+                    <button type="button" id="replay-code-btn" class="code-replay-btn">
+                    <i class="fa-solid fa-rotate-right"></i> Replay
+                    </button>
+                </div>
+                <pre class="code-screen"><code id="animated-code-output"></code><span class="code-cursor">|</span></pre>
+                </div>                
+
                 <!-- Static Media Player Block -->
                 <div class="ad-media-container margin-top-md">
                     <picture>
